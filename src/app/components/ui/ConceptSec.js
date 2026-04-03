@@ -10,8 +10,11 @@ export default function ConceptSec({
   watchLabel = "",
   heading = "The Concept",
   paragraph = "Have a seat, enjoy a glass of wine, a slice of cheese, and get ready to embark on a journey through Lisbon. Cheese & Wine is a different and unique concept to visit and enjoy Lisbon. We want you to feel at home and to love this city as much as we do. You will experience handmade hospitality, coupled with beautiful decorated units and scenarios.",
-  buttonLabel = "Discover",
+  buttonLabel = "",
   buttonHref = "/#",
+  imageWidth = "45",
+  imageHeight = "480px",
+  textWidth = "55",
 }) {
   return (
     <div
@@ -21,8 +24,12 @@ export default function ConceptSec({
     >
       {/* Image Side */}
       <div
-        className="w-[45%] h-[480px] bg-cover bg-center flex flex-col justify-center items-center"
-        style={{ backgroundImage: `url('${imageSrc}')` }}
+        className={`bg-cover bg-center flex flex-col justify-center items-center`}
+        style={{
+          backgroundImage: `url('${imageSrc}')`,
+          width: `${imageWidth}%`,
+          height: `${imageHeight}`,
+        }}
       >
         {playIcon && (
           <Link href={videoHref}>
@@ -41,15 +48,17 @@ export default function ConceptSec({
       </div>
 
       {/* Text Side */}
-      <div className="w-[55%]">
+      <div style={{ width: `${textWidth}%` }}>
         <h2 className="text-4xl font-semibold mb-6">{heading}</h2>
-        <p className="text-base text-gray-700 mb-6">{paragraph}</p>
-        <BookButton
-          label={buttonLabel}
-          href={buttonHref}
-          className="bg-[#1e2d4a] text-white border-[#1e2d4a] px-6 py-2.5 hover:opacity-90 [&>span]:border-white"
-          url="/assets/svg-icons/round-arrow-white.svg"
-        />
+        <div className="text-base text-gray-700">{paragraph}</div>
+        {buttonLabel && (
+          <BookButton
+            label={buttonLabel}
+            href={buttonHref}
+            className="bg-[#1e2d4a] text-white border-[#1e2d4a] px-6 py-2.5 hover:opacity-90 [&>span]:border-white"
+            url="/assets/svg-icons/round-arrow-white.svg"
+          />
+        )}
       </div>
     </div>
   );
