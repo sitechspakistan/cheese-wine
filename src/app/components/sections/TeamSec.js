@@ -18,7 +18,11 @@ Welcome to our home away from home, where Handmade Hospitality is more than just
       name: "Wesley Ferreira",
       location: "São Paulo - Brasil",
       image: "/assets/team/team.png",
-      quote: "Apna quote yahan...",
+      quote: `I'm a calm and understanding person who enjoys living in harmony. My favorite Portuguese dish is Cod with Cream (Bacalhau
+com Natas). I haven't explored many places yet,
+but Caxias beach has already won me over
+with its beauty, organization, and amazing
+view.`,
     },
     {
       name: "Wesley Ferreira",

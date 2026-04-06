@@ -55,7 +55,7 @@ export default function ConceptSec({
           <BookButton
             label={buttonLabel}
             href={buttonHref}
-            className="bg-[#1e2d4a] text-white border-[#1e2d4a] px-6 py-2.5 hover:opacity-90 [&>span]:border-white"
+            className="bg-[#1e2d4a] text-white border-[#1e2d4a] px-6 py-2.5 hover:opacity-90 [&>span]:border-white mt-6"
             url="/assets/svg-icons/round-arrow-white.svg"
           />
         )}

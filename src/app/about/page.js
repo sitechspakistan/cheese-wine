@@ -7,7 +7,8 @@ import TeamSection from "../components/sections/TeamSec";
 const AboutPage = () => {
   return (
     <>
-      <HeroSub />
+      <HeroSub heading="About Us" />
+
       <ConceptSec
         imageWidth="45"
         imageHeight="540px"
@@ -44,7 +45,7 @@ const AboutPage = () => {
             <p className="mb-4">
               We can't wait to welcome you to our beautiful city!
             </p>
-            <p className="">Cheese & Wine Team</p>
+            <p>Cheese & Wine Team</p>
           </>
         }
       />
