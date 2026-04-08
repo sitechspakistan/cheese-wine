@@ -3,6 +3,38 @@ import BookButton from "../ui/BookButton";
 import Image from "next/image";
 
 export default function Footer() {
+  const sitemapItems = [
+    ,
+    {
+      name: "About",
+      href: "/about",
+    },
+    {
+      name: "Suites",
+      href: "/suites",
+    },
+    {
+      name: "Apartments",
+      href: "/apartments",
+    },
+    {
+      name: "Hotel LX Lapa",
+      href: "/lapa",
+    },
+    {
+      name: "Experiences",
+      href: "/experiences",
+    },
+    {
+      name: "The Bulletin",
+      href: "/the-bulletin",
+    },
+    {
+      name: "Contact",
+      href: "/contact",
+    },
+  ];
+
   return (
     <footer className="bg-gray-100  border-gray-200 pt-12 pb-6 mt-auto bottom-0">
       <div className="px-10">
@@ -14,21 +46,13 @@ export default function Footer() {
               Site Map
             </h4>
             <ul className="flex flex-col gap-2">
-              {[
-                "About",
-                "Studios",
-                "Apartments",
-                "Hotel LX Lapa",
-                "Experiences",
-                "The Bulletin",
-                "Contact",
-              ].map((item) => (
-                <li key={item}>
+              {sitemapItems.map((item) => (
+                <li key={item.href}>
                   <Link
-                    href={`/${item.toLowerCase().replace(/ /g, "-")}`}
+                    href={`${item.href}`}
                     className="text-base text-gray-500 hover:text-black transition-colors"
                   >
-                    {item}
+                    {item.name}
                   </Link>
                 </li>
               ))}

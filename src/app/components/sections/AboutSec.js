@@ -14,6 +14,7 @@ export default function AboutPage() {
 relaxed and trendy vibe. With amazing views and extremely fast
 internet, it is also a good option for more extended stays."
         buttonLabel="Discover"
+        buttonHref="/lapa"
       />
       <GallerySec
         images={["1.jpg", "2.jpg", "3.jpg"]}
