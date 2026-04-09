@@ -1,8 +1,9 @@
 import React from "react";
-import Hero from "../components/sections/Hero";
 import HeroSub from "../components/sections/Hero-2";
 import ConceptSec from "../components/ui/ConceptSec";
 import TeamSection from "../components/sections/TeamSec";
+import CoreValues from "../components/sections/CoreValues";
+import Timeline from "../components/sections/TimelineSec";
 
 const AboutPage = () => {
   return (
@@ -49,6 +50,9 @@ const AboutPage = () => {
           </>
         }
       />
+      <CoreValues />
+      <Timeline />
+
       <TeamSection />
     </>
   );

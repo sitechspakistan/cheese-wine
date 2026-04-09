@@ -16,11 +16,11 @@ export default function BookingBar() {
               <label className="text-[16px] font-bold  uppercase text-gray-500">
                 Property
               </label>
-              <input
-                type="text"
-                placeholder="Suites"
-                className="!bg-[#dedede] border border-gray-300 bg-white px-3 py-2 text-sm text-gray-400  w-full focus:outline-none focus:border-gray-500 "
-              />
+              <select className="!bg-[#dedede] border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-400  w-full focus:outline-none focus:border-gray-500">
+                <option value="">All</option>
+                <option value="1">Suites</option>
+                <option value="2">Apartments</option>
+              </select>
             </div>
 
             {/* Check In / Check Out */}
@@ -31,7 +31,7 @@ export default function BookingBar() {
               <input
                 type="text"
                 placeholder="Add The Dates"
-                className="!bg-[#dedede] border border-gray-300 bg-white px-3 py-2 text-sm text-gray-400  focus:outline-none focus:border-gray-500"
+                className="bg-[#dedede] border border-gray-300 px-3 py-2 text-sm text-gray-400  focus:outline-none focus:border-gray-500"
               />
             </div>
 

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function GallerySec({
   images = [],
@@ -34,7 +35,14 @@ export default function GallerySec({
               {paragraph}
             </p>
           )}
-          {hashtag && <h3 className="text-3xl font-bold">{hashtag}</h3>}
+          {hashtag && (
+            <Link
+              href={"https://www.instagram.com/cheese.wine/"}
+              target="_blank"
+            >
+              <h3 className="text-3xl font-bold underline">{hashtag}</h3>
+            </Link>
+          )}
         </div>
       </div>
     </section>

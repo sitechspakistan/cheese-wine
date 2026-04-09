@@ -5,6 +5,7 @@ import TheBulletin from "./components/sections/TheBulletin";
 import AccommodationSec from "./components/sections/Accomodation";
 import AboutPage from "./components/sections/AboutSec";
 import ReviewsSec from "./components/sections/ReviewSec";
+import EmailForm from "./components/accommodation/EmailForm";
 
 export default function Home() {
   return (
@@ -12,9 +13,10 @@ export default function Home() {
       <Hero />
       <TheConcept />
       <ReviewsSec />
-      <AccommodationSec />
+      <AccommodationSec detailed={true} />
       <TheBulletin />
       <AboutPage />
+      <EmailForm />
     </main>
   );
 }
