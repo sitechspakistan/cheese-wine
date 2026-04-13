@@ -4,6 +4,7 @@ import ConceptSec from "../components/ui/ConceptSec";
 import TeamSection from "../components/sections/TeamSec";
 import CoreValues from "../components/sections/CoreValues";
 import Timeline from "../components/sections/TimelineSec";
+import CTABanner from "../components/ui/CTABanner";
 
 const AboutPage = () => {
   return (
@@ -54,6 +55,11 @@ const AboutPage = () => {
       <Timeline />
 
       <TeamSection />
+
+      <CTABanner
+        heading="Ready to experience handmade hospitality?"
+        subheading="Browse our Suites & Apartments and book your Lisbon experience."
+      />
     </>
   );
 };

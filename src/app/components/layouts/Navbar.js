@@ -10,7 +10,7 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
       {/* Desktop Navbar */}
-      <div className="max-w-7xl mx-auto flex items-center  py-4">
+      <div className="max-w-7xl mx-auto flex items-center py-2">
         {/* Left Links */}
         <div className="hidden md:flex items-center gap-7 flex-1">
           <Link
@@ -43,7 +43,7 @@ const Navbar = () => {
               handmade hospitality
             </span> */}
             <Image
-              src="/assets/svg-logo/header-logo.svg"
+              src="/assets/images/main-logo.png"
               alt="Cheese & Wine Logo"
               width={400}
               height={100}
@@ -61,7 +61,7 @@ const Navbar = () => {
             The Bulletin
           </Link>
           <Link
-            href="/contact"
+            href="/contact-us"
             className="text-gray-600 text-sm tracking-wide hover:text-black transition-colors"
           >
             Contact Us

@@ -19,7 +19,7 @@ export default function Footer() {
     },
     {
       name: "Hotel LX Lapa",
-      href: "/lapa",
+      href: "/hotel-lapa",
     },
     {
       name: "Experiences",

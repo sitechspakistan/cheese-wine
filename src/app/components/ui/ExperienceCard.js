@@ -7,16 +7,26 @@ const ExperienceCard = ({
   description,
   buttonText = "Enquire Now",
   buttonLink = "#",
+  price = "",
+  isComplimentary = false,
+  rating = null,
+  ratingSource = "TripAdvisor",
 }) => {
   return (
-    <div className="flex flex-col ">
+    <div className="flex flex-col">
       {/* Image */}
-      <div className="w-full h-72 overflow-hidden">
+      <div className="w-full h-72 overflow-hidden relative">
         <img
           src={imageSrc}
           alt={title}
           className="w-full h-full object-cover"
         />
+        {/* Complimentary Badge */}
+        {isComplimentary && (
+          <div className="absolute top-3 left-3 bg-[#1e2d4a] text-white text-xs px-3 py-1 uppercase tracking-wide">
+            Included with your stay
+          </div>
+        )}
       </div>
 
       {/* Content */}
@@ -26,7 +36,23 @@ const ExperienceCard = ({
         <p className="text-gray-500 text-sm line-clamp-2 flex-1 mb-4">
           {description}
         </p>
+        {/* Price */}
+        {price && (
+          <p className="text-sm font-semibold text-[#1e2d4a] mb-3">
+            {isComplimentary
+              ? "Complimentary for direct guests"
+              : `From ${price} per person`}
+          </p>
+        )}
 
+        {rating && (
+          <div className="flex items-center gap-1 mb-4">
+            <span className="text-yellow-500 text-sm">★</span>
+            <span className="text-sm font-medium text-gray-700">
+              Rated {rating} on {ratingSource}
+            </span>
+          </div>
+        )}
         {/* Button */}
         <BookButton
           label={buttonText}
