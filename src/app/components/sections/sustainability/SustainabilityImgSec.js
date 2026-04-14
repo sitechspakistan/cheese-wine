@@ -17,19 +17,21 @@ const photos = [
 
 const SustainabilityImgSec = () => {
   return (
-    <section className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-3  bg-white border-b border-gray-100">
-      {photos.map((photo) => (
-        <div
-          key={photo.src}
-          className="aspect-[4/3] rounded-md overflow-hidden bg-gray-100"
-        >
-          <img
-            src={photo.src}
-            alt={photo.alt}
-            className="w-full h-full object-cover"
-          />
-        </div>
-      ))}
+    <section className="pb-16 px-6">
+      <div className="max-w-7xl mx-auto  grid grid-cols-1 md:grid-cols-3 gap-3  bg-white border-b border-gray-100">
+        {photos.map((photo) => (
+          <div
+            key={photo.src}
+            className="aspect-[4/3] rounded-md overflow-hidden bg-gray-100"
+          >
+            <img
+              src={photo.src}
+              alt={photo.alt}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        ))}
+      </div>
     </section>
   );
 };

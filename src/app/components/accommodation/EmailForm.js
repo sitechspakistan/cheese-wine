@@ -1,7 +1,9 @@
 import React from "react";
 import BookButton from "../ui/BookButton";
 
-const EmailForm = () => {
+const EmailForm = ({
+  para = "Be the first to know about our opening, Get notified when Hotel LX Lapa opens.",
+}) => {
   return (
     <div
       id="stay-informed"
@@ -9,10 +11,7 @@ const EmailForm = () => {
     >
       <div className="max-w-xl mx-auto text-center px-6">
         <h2 className="text-3xl font-semibold mb-3">Stay Tuned!</h2>
-        <p className="text-gray-600 mb-6">
-          Be the first to know about our opening, Get notified when Hotel LX
-          Lapa opens.
-        </p>
+        <p className="text-gray-600 mb-6">{para}</p>
         <div className="flex gap-3">
           <input
             type="email"
@@ -21,7 +20,7 @@ const EmailForm = () => {
           />
           <BookButton
             label="Notify Me"
-            href="/book"
+            href="#"
             className="bg-[#1e2d4a] text-white border-[#1e2d4a] px-6 py-2.5 hover:opacity-90 [&>span]:border-white"
             url="/assets/svg-icons/round-arrow-white.svg"
           />

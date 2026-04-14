@@ -70,7 +70,7 @@ const ExperiencesPage = () => {
 
   return (
     <>
-      <HeroSub heading="Experiences" />
+      <HeroSub heading="Experiences" overlay="true" />
 
       <ExperienceFilter onFilter={setActiveFilter} />
 

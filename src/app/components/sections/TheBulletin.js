@@ -6,26 +6,26 @@ const posts = [
     id: 1,
     imageSrc: "blog-1.jpg",
     category: "Wine Restaurant",
-    date: "August 10, 2026",
+    date: "15 Mar, 2026",
     title:
       "How To Create A Portuguese Wine & Cheese Experience In Cheese & Wine Suites, Lapa Or Apartments",
-    href: "/blog/post-1",
+    href: "bulletin/detail",
   },
   {
     id: 2,
     imageSrc: "blog-2.jpg",
     category: "Outdoor Restaurant",
-    date: "August 10, 2026",
+    date: "1 Feb, 2026",
     title: "Amoreiras: Where History Meets Contemporary Elegance In Lisbon",
-    href: "/blog/post-2",
+    href: "bulletin/detail",
   },
   {
     id: 3,
     imageSrc: "blog-3.jpg",
     category: "Outdoor",
-    date: "August 10, 2026",
+    date: "12 Jan, 2026",
     title: "How To Explore Lisbon's Museums In A Weekend",
-    href: "/blog/post-3",
+    href: "/bulletin/detail",
   },
 ];
 

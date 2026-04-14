@@ -37,7 +37,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-gray-100  border-gray-200 pt-12 pb-6 mt-auto bottom-0">
-      <div className="px-10">
+      <div className="px-8">
         {/* Top 3 Columns */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pb-10   max-w-7xl mx-auto ">
           {/* Column 1 - Site Map */}

@@ -9,7 +9,7 @@ import CTABanner from "../components/ui/CTABanner";
 const SustainabilityPage = () => {
   return (
     <>
-      <HeroSub heading="Sustainability" />
+      <HeroSub heading="Sustainability" overlay="true" />
       <SustainabilityIntro />
       <SustainabilityImgSec />
       <SustainabilityPractices />

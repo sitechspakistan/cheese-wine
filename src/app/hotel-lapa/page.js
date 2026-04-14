@@ -7,8 +7,9 @@ const LapaPage = () => {
   return (
     <>
       <HeroSub
-        heading="Hotel LX Lapa — Coming Spring 2027"
+        heading="Hotel LX Lapa Coming Spring 2027"
         imageUrl="/assets/images/lapa-hero.jpg"
+        overlay={true}
       />
 
       <ConceptSec

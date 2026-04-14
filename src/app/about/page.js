@@ -9,7 +9,7 @@ import CTABanner from "../components/ui/CTABanner";
 const AboutPage = () => {
   return (
     <>
-      <HeroSub heading="About Us" />
+      <HeroSub heading="About Us" overlay="true" />
 
       <ConceptSec
         imageWidth="45"

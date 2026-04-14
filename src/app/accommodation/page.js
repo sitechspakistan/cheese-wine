@@ -23,7 +23,7 @@ const Accommodation = () => {
   ];
   return (
     <>
-      <HeroSub heading="Accommodation" />
+      <HeroSub heading="Accommodation" overlay="true" />
       <AccommodationSec detailed={true} />
       {/* <section className="py-[80px] px-4">
         <div className="max-w-7xl mx-auto">
