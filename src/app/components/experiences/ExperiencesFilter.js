@@ -14,7 +14,7 @@ export default function ExperienceFilter({ onFilter }) {
   const [active, setActive] = useState("All");
 
   return (
-    <div className="max-w-7xl mx-auto px-10 py-6 flex gap-3 justify-center">
+    <div className="max-w-7xl mx-auto px-10 py-10 flex gap-3 justify-center">
       {filters.map((filter) => (
         <button
           key={filter}

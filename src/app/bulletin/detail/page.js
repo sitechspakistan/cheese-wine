@@ -7,7 +7,7 @@ export default function BlogDetail() {
       <HeroSub
         heading="Amoreiras: Where History Meets Contemporary Elegance In Lisbon"
         overlay="true"
-        breadcrumb="Amoreiras: Where History Meets Contemporary Elegance In Lisbon"
+        breadcrumb="Travel Guide"
       />
       <div className="flex gap-7 items-start px-4 py-10 max-w-7xl mx-auto">
         {/* Main Content */}

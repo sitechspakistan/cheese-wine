@@ -1,5 +1,7 @@
 import React from "react";
 import BookButton from "../ui/BookButton";
+import ContactInput from "../contact/ContactInput";
+import ContactTextarea from "../contact/ContactTextArea";
 
 const ContactInquiry = () => {
   const experiences = [
@@ -18,53 +20,25 @@ const ContactInquiry = () => {
 
       {/* Row 1 */}
       <div className="grid grid-cols-3 gap-4 mb-4">
-        {[
-          ["YOUR NAME", "Your Name"],
-          ["EMAIL", "Your Email"],
-          ["PHONE", "Phone Number"],
-        ].map(([label, placeholder]) => (
-          <div key={label}>
-            <label className="block mb-1 text-[16px] font-bold  uppercase text-gray-500">
-              {label}
-            </label>
-            <input
-              type="text"
-              placeholder={placeholder}
-              className="bg-[#dedede] border border-gray-300 px-3 py-2 text-sm text-gray-400  w-full focus:outline-none focus:border-gray-500"
-            />
-          </div>
-        ))}
+        {["Your Name", "Your Email", "Phone Number"].map(
+          (placeholder, index) => (
+            <ContactInput key={index} placeholder={placeholder} />
+          ),
+        )}
       </div>
 
       {/* Row 2 */}
       <div className="grid grid-cols-2 gap-4 mb-4">
-        {[
-          ["ACTIVITY DATE", "Date"],
-          ["NUMBER OF PEOPLE", "01"],
-        ].map(([label, placeholder]) => (
-          <div key={label}>
-            <label className="block mb-1 text-[16px] font-bold  uppercase text-gray-500">
-              {label}
-            </label>
-            <input
-              type="text"
-              placeholder={placeholder}
-              className="bg-[#dedede] border border-gray-300  px-3 py-2 text-sm text-gray-400  w-full focus:outline-none focus:border-gray-500"
-            />
+        {["Date", "Enter People"].map((placeholder, index) => (
+          <div key={index}>
+            <ContactInput placeholder={placeholder} />
           </div>
         ))}
       </div>
 
       {/* Message */}
       <div className="mb-6">
-        <label className="block mb-1 text-[16px] font-bold  uppercase text-gray-500">
-          MESSAGE
-        </label>
-        <textarea
-          rows={5}
-          placeholder="Message"
-          className="bg-[#dedede] border border-gray-300  px-3 py-2 text-sm text-gray-400  w-full focus:outline-none focus:border-gray-500 resize-none"
-        />
+        <ContactTextarea placeholder={"Message"} />
       </div>
 
       {/* Checkboxes */}
@@ -76,7 +50,7 @@ const ContactInquiry = () => {
               key={exp}
               className="flex items-center gap-3 cursor-pointer text-base text-[#6e6e6e]"
             >
-              <input type="checkbox" className="w-8 h-8 " />
+              <input type="checkbox" className="w-4 h-full" />
               {exp}
             </label>
           ))}

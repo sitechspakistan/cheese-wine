@@ -14,7 +14,7 @@ const AboutPage = () => {
       <ConceptSec
         imageWidth="45"
         imageHeight="540px"
-        textWidth="55"
+        textWidth="45"
         imageSrc="/assets/images/hero-bg.jpg"
         heading="Embrace Handmade Hospitality In Lisbon"
         paragraph={

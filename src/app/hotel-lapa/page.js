@@ -19,9 +19,9 @@ const LapaPage = () => {
         buttonLabel="STAY INFORMED"
         buttonHref="#stay-informed"
         watchLabel=""
-        imageHeight="500px"
+        imageHeight="400px"
         imageWidth="45"
-        textWidth="55"
+        textWidth="40"
       />
       {/* Amenities */}
       <div className="bg-gray-200 py-[80px]">
@@ -36,7 +36,7 @@ const LapaPage = () => {
             ].map((item) => (
               <div
                 key={item.label}
-                className="border border-gray-300 py-10 flex flex-col items-center gap-3"
+                className="border border-gray-300 bg-white py-10 flex flex-col items-center gap-3"
               >
                 <span className="text-4xl">{item.icon}</span>
                 <p className="text-[#1e2d4a] font-semibold text-lg uppercase tracking-wide">

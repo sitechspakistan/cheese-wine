@@ -12,7 +12,7 @@ const experiences = [
     category: "Food & Wine",
     title: "Unique Experiences",
     description: "With our thoroughly curated partners we aim to provide. ",
-    buttonText: "Enquire Now",
+    buttonText: "Discover",
     buttonLink: "/#",
     complimentary: false,
     price: "€50",
@@ -25,7 +25,7 @@ const experiences = [
     category: "Culture & History",
     title: "Explore Lisbon",
     description: "Welcome to our Lisbon Guides! Immerse yourself in Lisbon's.",
-    buttonText: "Enquire Now",
+    buttonText: "Discover",
     buttonLink: "/#",
     complimentary: true,
     price: "complimentary",
@@ -37,7 +37,7 @@ const experiences = [
     title: "Lisbon Sailing Experience",
     description:
       "Enjoy a fantastic and unforgettable sailing experience in Lisbon.",
-    buttonText: "Book Now",
+    buttonText: "Discover",
     buttonLink: "/#",
   },
   {
@@ -47,7 +47,7 @@ const experiences = [
     title: "Free Walking Tours",
     description:
       "A free walking tour in Lisbon is the ideal way to know the history and.",
-    buttonText: "Enquire Now",
+    buttonText: "Discover",
     buttonLink: "/#",
   },
   {
@@ -56,7 +56,7 @@ const experiences = [
     category: "Transport & Logistics",
     title: "Airport Transportation",
     description: "Experience seamless and stress-free travel with our premium.",
-    buttonText: "Book Now",
+    buttonText: "Discover",
     buttonLink: "/#",
   },
 ];
@@ -74,7 +74,7 @@ const ExperiencesPage = () => {
 
       <ExperienceFilter onFilter={setActiveFilter} />
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 py-12 ">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 pb-10">
         {filtered.map((exp) => (
           <ExperienceCard
             key={exp.id}

@@ -16,7 +16,7 @@ export default function HeroSub({
       {overlay && (
         <div className="absolute inset-0 bg-black/40 h-[500px]"></div>
       )}
-      <div className="relative z-10 max-w-7xl mx-auto text-center flex flex-col justify-center items-center gap-8">
+      <div className="relative z-10 max-w-7xl mx-auto text-center flex flex-col  items-center gap-8">
         {breadcrumb && (
           <nav className="text-sm text-gray-300">
             <Link href="/" className="hover:underline">

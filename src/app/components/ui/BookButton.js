@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function BookButton({
   label = "BOOK NOW",
-  href = "/book",
+  href = "#",
   className = "",
   url = "",
 }) {

@@ -1,19 +1,19 @@
-// app/booking/page.jsx  ya  pages/booking.jsx
-
 export default function BookingPage() {
   return (
     <div className="w-full mb-12 max-w-7xl mx-auto mt-25">
-      <a
-        style={{ fontSize: "16px", color: "#000000" }}
-        target="_blank"
-        href="https://admin.hostsync.io/booking.php?propid=311285&referer=BookingLink"
-      >
-        Book Online
-      </a>
       <iframe
-        className="w-full   h-[800px]"
-        src="https://admin.hostsync.io/booking2.php?propid=311285&referer=iframe"
-      />
+        src="https://admin.hostsync.io/booking2.php?propid=322695&amp;referer=iframe"
+        width="800"
+        height="2000"
+        style={{ maxWidth: "100%", border: "none", overflow: "auto" }}
+      >
+        <a
+          href="https://admin.hostsync.io/booking2.php?propid=322695&amp;referer=iframe"
+          title="Book Now"
+        >
+          Book Now
+        </a>
+      </iframe>
     </div>
   );
 }

@@ -18,7 +18,7 @@ export default function ConceptSec({
 }) {
   return (
     <div
-      className={`bg-white my-[80px] max-w-7xl mx-auto flex items-center justify-between gap-5 ${
+      className={`bg-white my-[80px] max-w-7xl mx-auto flex items-center gap-5 ${
         reverse ? "flex-row-reverse" : "flex-row"
       }`}
     >
