@@ -25,7 +25,7 @@ const accommodations = [
     title: "Suites",
     description:
       "Unique and exclusive bedrooms and a gorgeous breakfast. Located in the trendy and central Santos design district, at walking distance to the major sightseeing attractions and trendy places...",
-    href: "#",
+    href: "/book-now",
     roomTypes: [
       { name: "Classic Suite", capacity: 2, price: "€185" },
       { name: "Superior Suite", capacity: 2, price: "€225" },
@@ -40,7 +40,7 @@ const accommodations = [
     title: "Apartments",
     description:
       "Comfortable and beautifully decorated properties. Located in the most incredible places, most of them with breathtaking views, or simply the best location you can have in Lisbon's historic city center...",
-    href: "#",
+    href: "/book-now",
     roomTypes: [
       { name: "Studio Apartment", capacity: 2, price: "€145" },
       { name: "One Bedroom", capacity: 3, price: "€185" },

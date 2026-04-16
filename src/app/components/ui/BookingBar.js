@@ -65,7 +65,7 @@ export default function BookingBar() {
             <div className="flex flex-col items-start  mt-5">
               <BookButton
                 label="BOOK NOW"
-                href="/book"
+                href="/book-now"
                 className="bg-[#1e2d4a] text-white border-[#1e2d4a] px-6 py-2.5 hover:opacity-90 [&>span]:border-white"
                 url="/assets/svg-icons/round-arrow-white.svg"
               />

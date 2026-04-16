@@ -66,7 +66,7 @@ const Navbar = () => {
           >
             Contact Us
           </Link>
-          <BookButton />
+          <BookButton href="/book-now" />
           {/* <Link
             href="/book"
             className="bg-gray-900 text-white text-xs tracking-widest px-5 py-2 rounded-sm hover:bg-gray-700 transition-colors"
