@@ -27,17 +27,17 @@ const GuideLinks = () => {
   ];
 
   return (
-    <div className="grid grid-cols-2 gap-x-8 gap-y-6 mt-6">
+    <div className="grid grid-cols-4  gap-6 mt-10">
       {guides.map((guide) => (
-        <div key={guide.id} className="flex items-start gap-3">
-          <span className="text-3xl font-bold text-navy-900 leading-tight">
+        <div key={guide.id} className="flex gap-3 items-start py-4">
+          <span className="text-5xl font-medium leading-5 text-[#eba123]">
             {guide.id}
           </span>
           <p className="text-sm text-gray-700">
             {guide.title} -{" "}
             <Link
               href={guide.href}
-              className="font-semibold underline text-navy-900"
+              className="font-semibold underline text-blue-900"
             >
               Click Here
             </Link>

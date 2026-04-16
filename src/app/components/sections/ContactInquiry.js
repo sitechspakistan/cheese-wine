@@ -42,7 +42,7 @@ const ContactInquiry = () => {
       </div>
 
       {/* Checkboxes */}
-      <div className="mb-12">
+      <div className="mb-10">
         <h3 className="text-3xl font-bold mb-4 text-black">Experience</h3>
         <div className="flex flex-wrap justify-between ">
           {experiences.map((exp) => (
@@ -60,6 +60,7 @@ const ContactInquiry = () => {
       {/* Submit */}
       <div className="flex justify-center">
         <BookButton
+          label="Inquire Now"
           className="bg-[#1e2d4a] text-white border-[#1e2d4a] px-6 py-2.5 hover:opacity-90 [&>span]:border-white "
           url="/assets/svg-icons/round-arrow-white.svg"
         />

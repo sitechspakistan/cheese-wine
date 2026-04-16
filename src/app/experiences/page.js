@@ -13,7 +13,7 @@ const experiences = [
     title: "Unique Experiences",
     description: "With our thoroughly curated partners we aim to provide. ",
     buttonText: "Discover",
-    buttonLink: "/#",
+    buttonLink: "/experiences/unique-experience",
     complimentary: false,
     price: "€50",
     rating: "4.8",
@@ -26,7 +26,7 @@ const experiences = [
     title: "Explore Lisbon",
     description: "Welcome to our Lisbon Guides! Immerse yourself in Lisbon's.",
     buttonText: "Discover",
-    buttonLink: "/#",
+    buttonLink: "/experiences/explore-lisbon",
     complimentary: true,
     price: "complimentary",
   },
@@ -38,7 +38,7 @@ const experiences = [
     description:
       "Enjoy a fantastic and unforgettable sailing experience in Lisbon.",
     buttonText: "Discover",
-    buttonLink: "/#",
+    buttonLink: "/experiences/lisbon-sailing",
   },
   {
     id: 4,
@@ -48,7 +48,7 @@ const experiences = [
     description:
       "A free walking tour in Lisbon is the ideal way to know the history and.",
     buttonText: "Discover",
-    buttonLink: "/#",
+    buttonLink: "/experiences/walking-tour",
   },
   {
     id: 5,
@@ -57,7 +57,7 @@ const experiences = [
     title: "Airport Transportation",
     description: "Experience seamless and stress-free travel with our premium.",
     buttonText: "Discover",
-    buttonLink: "/#",
+    buttonLink: "/experiences/airport-transportation",
   },
 ];
 

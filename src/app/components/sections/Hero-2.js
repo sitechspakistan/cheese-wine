@@ -10,7 +10,7 @@ export default function HeroSub({
 }) {
   return (
     <section
-      className={`flex items-center justify-center bg-cover h-[500px] bg-center pt-[75px] ${className}`}
+      className={`flex items-center justify-center bg-cover h-[500px] bg-center  ${className}`}
       style={{ backgroundImage: `url('${imageUrl}')` }}
     >
       {overlay && (

@@ -8,9 +8,9 @@ import BookButton from "../ui/BookButton";
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
+    <nav className="w-full fixed top-0 z-50 bg-white shadow-sm">
       {/* Desktop Navbar */}
-      <div className="max-w-7xl mx-auto flex items-center py-2">
+      <div className="max-w-7xl mx-auto flex items-center py-2 justify-between">
         {/* Left Links */}
         <div className="hidden md:flex items-center gap-7 flex-1">
           <Link
