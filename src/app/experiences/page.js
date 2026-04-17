@@ -91,8 +91,9 @@ const ExperiencesPage = () => {
         ))}
       </div> */}
       <ExperiencesClient experiences={experiences} />
-
-      <ContactInquiry />
+      <div className="mb-[80px]">
+        <ContactInquiry />
+      </div>
     </>
   );
 };

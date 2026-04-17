@@ -10,12 +10,10 @@ export default function HeroSub({
 }) {
   return (
     <section
-      className={`flex items-center justify-center bg-cover h-[500px] bg-center  ${className}`}
+      className={`relative flex items-center justify-center bg-cover h-[500px] bg-center  ${className}`}
       style={{ backgroundImage: `url('${imageUrl}')` }}
     >
-      {overlay && (
-        <div className="absolute inset-0 bg-black/40 h-[500px]"></div>
-      )}
+      {overlay && <div className="absolute inset-0 bg-black/40 "></div>}
       <div className="relative z-10 max-w-7xl mx-auto text-center flex flex-col  items-center gap-8">
         {breadcrumb && (
           <nav className="text-sm text-gray-300">
