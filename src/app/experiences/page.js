@@ -1,10 +1,15 @@
-"use client";
-import React, { useState } from "react";
+// "use client";
+// import React, { useState } from "react";
 import HeroSub from "../components/sections/Hero-2";
 import ContactInquiry from "../components/sections/ContactInquiry";
 import ExperienceCard from "../components/ui/ExperienceCard";
 import ExperienceFilter from "../components/experiences/ExperiencesFilter";
+import ExperiencesClient from "../components/experiences/ExperiencesClient";
 
+export const metadata = {
+  title: "Experiences | Cheese & Wine",
+  // description: "...",
+};
 const experiences = [
   {
     id: 1,
@@ -62,19 +67,13 @@ const experiences = [
 ];
 
 const ExperiencesPage = () => {
-  const [activeFilter, setActiveFilter] = useState("All");
-
-  const filtered = experiences.filter((exp) =>
-    activeFilter === "All" ? true : exp.category === activeFilter,
-  );
-
   return (
     <>
       <HeroSub heading="Experiences" overlay="true" />
 
-      <ExperienceFilter onFilter={setActiveFilter} />
+      {/* <ExperienceFilter onFilter={setActiveFilter} /> */}
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 pb-10">
+      {/* <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 pb-10">
         {filtered.map((exp) => (
           <ExperienceCard
             key={exp.id}
@@ -90,7 +89,8 @@ const ExperiencesPage = () => {
             ratingSource={exp.ratingSource}
           />
         ))}
-      </div>
+      </div> */}
+      <ExperiencesClient experiences={experiences} />
 
       <ContactInquiry />
     </>

@@ -13,7 +13,7 @@ const ContactInquiry = () => {
   ];
 
   return (
-    <section className="pb-16  max-w-7xl mx-auto">
+    <section className="max-w-7xl mx-auto">
       <h2 className="text-3xl font-bold text-center mb-10 text-black">
         Contact Us - Inquire Activities
       </h2>

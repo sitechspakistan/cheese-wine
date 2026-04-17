@@ -1,6 +1,10 @@
 import HeroSub from "@/app/components/sections/Hero-2";
 import BulletinSidebar from "@/app/components/ui/BulletinSidebar";
 
+export const metadata = {
+  title: "Bulletin Detail | Cheese & Wine",
+  // description: "...",
+};
 export default function BlogDetail() {
   return (
     <>

@@ -7,6 +7,11 @@ import AboutPage from "./components/sections/AboutSec";
 import ReviewsSec from "./components/sections/ReviewSec";
 import EmailForm from "./components/accommodation/EmailForm";
 
+export const metadata = {
+  title: "Cheese & Wine",
+  // description: "...",
+};
+
 export default function Home() {
   return (
     <main>

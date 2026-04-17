@@ -1,13 +1,25 @@
 import ContactInquiry from "@/app/components/sections/ContactInquiry";
 import BookButton from "@/app/components/ui/BookButton";
+import LightboxGallery from "@/app/components/ui/LightBoxGallery";
 import Image from "next/image";
 import React from "react";
 
+export const metadata = {
+  title: "Unique Experience | Cheese & Wine",
+  // description: "...",
+};
+
+const images = [
+  "/assets/images/gallery/1.jpg",
+  "/assets/images/gallery/2.jpg",
+  "/assets/images/gallery/3.jpg",
+  "/assets/images/gallery/4.jpg",
+];
 const uniqueExperience = () => {
   return (
     <>
       <section className="px-4 py-[80px]">
-        <div className="pt-12  max-w-7xl mx-auto min-h-screen flex flex-col ">
+        <div className="py-12  max-w-7xl mx-auto min-h-screen flex flex-col ">
           <h1 className="text-4xl font-bold text-center">
             Unique Experience: Unforgettable Moments with Cheese & Wine in
             Lisbon
@@ -32,19 +44,8 @@ const uniqueExperience = () => {
           {/* <p className=" text-base text-gray-600">
             Click one of the buttons below to begin exploring!
           </p> */}
+          <LightboxGallery images={images} />
 
-          <div className="grid grid-cols-4 gap-4 mt-10">
-            {["1.jpg", "2.jpg", "3.jpg", "4.jpg"].map((src, index) => (
-              <div key={index} className="relative h-[300px] w-full">
-                <Image
-                  src={`/assets/images/gallery/${src}`}
-                  alt={`gallery-${index}`}
-                  fill
-                  className="object-cover rounded-lg"
-                />
-              </div>
-            ))}
-          </div>
           <BookButton
             label={"Book Now"}
             href="/book-now"
@@ -52,9 +53,7 @@ const uniqueExperience = () => {
             url="/assets/svg-icons/round-arrow-white.svg"
           />
         </div>
-        <div className="mt-10">
-          <ContactInquiry />
-        </div>
+        <ContactInquiry />
       </section>
     </>
   );

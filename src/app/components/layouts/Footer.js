@@ -4,18 +4,17 @@ import Image from "next/image";
 
 export default function Footer() {
   const sitemapItems = [
-    ,
     {
       name: "About",
       href: "/about",
     },
     {
       name: "Suites",
-      href: "/suites",
+      href: "#",
     },
     {
       name: "Apartments",
-      href: "/apartments",
+      href: "",
     },
     {
       name: "Hotel LX Lapa",
@@ -27,11 +26,11 @@ export default function Footer() {
     },
     {
       name: "The Bulletin",
-      href: "/the-bulletin",
+      href: "/bulletin",
     },
     {
       name: "Contact",
-      href: "/contact",
+      href: "/contact-us",
     },
   ];
 

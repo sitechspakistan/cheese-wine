@@ -2,6 +2,10 @@ import React from "react";
 import ContactForm from "../components/contact/ContactForm";
 import ContactInfo from "../components/contact/ContactInfo";
 
+export const metadata = {
+  title: "Contact Us | Cheese & Wine",
+  // description: "...",
+};
 const contactPage = () => {
   return (
     <div className="max-w-7xl mx-auto px-10 py-30">

@@ -1,13 +1,25 @@
 import ContactInquiry from "@/app/components/sections/ContactInquiry";
 import BookButton from "@/app/components/ui/BookButton";
+import LightboxGallery from "@/app/components/ui/LightBoxGallery";
 import Image from "next/image";
 import React from "react";
+
+export const metadata = {
+  title: "Lisbon Sailing | Cheese & Wine",
+  // description: "...",
+};
+const images = [
+  "/assets/images/gallery/sailing/1.jpg",
+  "/assets/images/gallery/sailing/2.jpg",
+  "/assets/images/gallery/sailing/3.jpg",
+  "/assets/images/gallery/sailing/4.jpg",
+];
 
 const lisbonSailing = () => {
   return (
     <>
-      <section className="px-4 py-[80px]">
-        <div className="pt-12  max-w-7xl mx-auto min-h-screen flex flex-col ">
+      <section className="px-4 my-[80px]">
+        <div className="py-12  max-w-7xl mx-auto min-h-screen flex flex-col ">
           <h1 className="text-4xl font-bold text-center">
             Lisbon Sailing Experience
           </h1>
@@ -45,7 +57,9 @@ const lisbonSailing = () => {
             </li>
           </ul>
 
-          <div className="grid grid-cols-4 gap-4 mt-10">
+          <LightboxGallery images={images} />
+
+          {/* <div className="grid grid-cols-4 gap-4 mt-10">
             {["1.jpg", "2.jpg", "3.jpg", "4.jpg"].map((src, index) => (
               <div key={index} className="relative h-[300px] w-full">
                 <Image
@@ -56,7 +70,7 @@ const lisbonSailing = () => {
                 />
               </div>
             ))}
-          </div>
+          </div> */}
 
           <BookButton
             label={"Book Now"}
@@ -65,9 +79,7 @@ const lisbonSailing = () => {
             url="/assets/svg-icons/round-arrow-white.svg"
           />
         </div>
-        <div className="mt-10">
-          <ContactInquiry />
-        </div>
+        <ContactInquiry />
       </section>
     </>
   );

@@ -1,13 +1,26 @@
 import ContactInquiry from "@/app/components/sections/ContactInquiry";
 import BookButton from "@/app/components/ui/BookButton";
+import LightboxGallery from "@/app/components/ui/LightBoxGallery";
 import Image from "next/image";
 import React from "react";
+
+export const metadata = {
+  title: "Free Walking Tours | Cheese & Wine",
+  // description: "...",
+};
+
+const images = [
+  "/assets/images/gallery/walking-tour/1.png",
+  "/assets/images/gallery/walking-tour/2.png",
+  "/assets/images/gallery/walking-tour/3.png",
+  "/assets/images/gallery/walking-tour/4.png",
+];
 
 const walkingTour = () => {
   return (
     <>
       <section className="px-4 py-[80px]">
-        <div className="pt-12  max-w-7xl mx-auto min-h-screen flex flex-col ">
+        <div className="py-12  max-w-7xl mx-auto min-h-screen flex flex-col ">
           <h1 className="text-4xl font-bold text-center">Free Walking Tours</h1>
           <p className="mt-10 text-base text-gray-600">
             A free walking tour in Lisbon is the ideal way to know the history
@@ -58,18 +71,7 @@ const walkingTour = () => {
             </li>
           </ul>
 
-          <div className="grid grid-cols-4 gap-4 mt-10">
-            {["1.png", "2.png", "3.png", "4.png"].map((src, index) => (
-              <div key={index} className="relative h-[300px] w-full">
-                <Image
-                  src={`/assets/images/gallery/walking-tour/${src}`}
-                  alt={`gallery-${index}`}
-                  fill
-                  className="object-cover rounded-lg"
-                />
-              </div>
-            ))}
-          </div>
+          <LightboxGallery images={images} />
 
           <BookButton
             label={"Book Now"}
@@ -78,9 +80,7 @@ const walkingTour = () => {
             url="/assets/svg-icons/round-arrow-white.svg"
           />
         </div>
-        <div className="mt-10">
-          <ContactInquiry />
-        </div>
+        <ContactInquiry />
       </section>
     </>
   );

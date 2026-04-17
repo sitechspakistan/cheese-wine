@@ -3,6 +3,10 @@ import HeroSub from "../components/sections/Hero-2";
 import ConceptSec from "../components/ui/ConceptSec";
 import EmailForm from "../components/accommodation/EmailForm";
 
+export const metadata = {
+  title: "Hotel LX Lapa | Cheese & Wine",
+  // description: "...",
+};
 const LapaPage = () => {
   return (
     <>

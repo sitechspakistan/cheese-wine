@@ -1,13 +1,24 @@
 import ContactInquiry from "@/app/components/sections/ContactInquiry";
 import BookButton from "@/app/components/ui/BookButton";
-import Image from "next/image";
+import LightboxGallery from "@/app/components/ui/LightBoxGallery";
 import React from "react";
+export const metadata = {
+  title: "Airport Transportation | Cheese & Wine",
+  // description: "...",
+};
+
+const images = [
+  "/assets/images/gallery/transport/1.png",
+  "/assets/images/gallery/transport/2.jpg",
+  "/assets/images/gallery/transport/3.jpg",
+  "/assets/images/gallery/transport/4.jpg",
+];
 
 const airportTransportation = () => {
   return (
     <>
       <section className="px-4 py-[80px]">
-        <div className="pt-12  max-w-7xl mx-auto min-h-screen flex flex-col ">
+        <div className="py-12  max-w-7xl mx-auto min-h-screen flex flex-col ">
           <h1 className="text-4xl font-bold text-center">
             Airport Transportation
           </h1>
@@ -25,19 +36,8 @@ const airportTransportation = () => {
             Enjoy the convenience of timely pickups and drop-offs, allowing you
             to focus on what matters most - your Lisbon travel experience.
           </p>
+          <LightboxGallery images={images} columns={4} height={300} />
 
-          <div className="grid grid-cols-4 gap-4 mt-10">
-            {["1.png", "2.jpg", "3.jpg", "4.jpg"].map((src, index) => (
-              <div key={index} className="relative h-[300px] w-full">
-                <Image
-                  src={`/assets/images/gallery/transport/${src}`}
-                  alt={`gallery-${index}`}
-                  fill
-                  className="object-cover rounded-lg"
-                />
-              </div>
-            ))}
-          </div>
           <BookButton
             label={"Book Now"}
             href="/book-now"

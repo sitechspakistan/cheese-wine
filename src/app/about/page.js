@@ -6,6 +6,11 @@ import CoreValues from "../components/sections/CoreValues";
 import Timeline from "../components/sections/TimelineSec";
 import CTABanner from "../components/ui/CTABanner";
 
+export const metadata = {
+  title: "About Us | Cheese & Wine",
+  // description: "...",
+};
+
 const AboutPage = () => {
   return (
     <>

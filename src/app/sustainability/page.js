@@ -6,6 +6,11 @@ import SustainabilityImgSec from "../components/sections/sustainability/Sustaina
 import SustainabilityPractices from "../components/sections/sustainability/SustainabilityPractices";
 import CTABanner from "../components/ui/CTABanner";
 
+export const metadata = {
+  title: "Sustainability | Cheese & Wine",
+  // description: "...",
+};
+
 const SustainabilityPage = () => {
   return (
     <>

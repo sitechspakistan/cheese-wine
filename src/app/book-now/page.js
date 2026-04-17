@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Book Now | Cheese & Wine",
+  // description: "...",
+};
 export default function BookingPage() {
   return (
     <div className="w-full mb-12 max-w-7xl mx-auto mt-25 overflow-hidden">

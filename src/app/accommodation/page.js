@@ -2,6 +2,10 @@ import React from "react";
 import HeroSub from "../components/sections/Hero-2";
 import AccommodationSec from "../components/sections/Accomodation";
 
+export const metadata = {
+  title: "Accommodation | Cheese & Wine",
+  // description: "...",
+};
 const Accommodation = () => {
   const accommodations = [
     {
