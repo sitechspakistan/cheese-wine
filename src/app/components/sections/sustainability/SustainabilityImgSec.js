@@ -1,4 +1,5 @@
 import React from "react";
+import LightboxGallery from "../../ui/LightBoxGallery";
 
 const photos = [
   {
@@ -14,11 +15,21 @@ const photos = [
     alt: "Cloth napkins and reusable tableware",
   },
 ];
+// const photos = [
+//   "/assets/images/sustainability/sustainability-1.png",
+//   "/assets/images/sustainability/sustainability-2.png",
+//   "/assets/images/sustainability/sustainability-3.png",
+// ];
 
 const SustainabilityImgSec = () => {
   return (
-    <section className="pb-16 px-6">
-      <div className="max-w-7xl mx-auto  grid grid-cols-1 md:grid-cols-3 gap-3  bg-white border-b border-gray-100">
+    <section className="pb-16 px-6 max-w-7xl mx-auto">
+      <LightboxGallery
+        images={photos.map((p) => p.src)}
+        columns={3}
+        height={350}
+      />
+      {/* <div className="max-w-7xl mx-auto  grid grid-cols-1 md:grid-cols-3 gap-3  bg-white border-b border-gray-100">
         {photos.map((photo) => (
           <div
             key={photo.src}
@@ -31,7 +42,7 @@ const SustainabilityImgSec = () => {
             />
           </div>
         ))}
-      </div>
+      </div> */}
     </section>
   );
 };

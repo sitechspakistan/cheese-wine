@@ -2,7 +2,7 @@ import React from "react";
 
 const SustainabilityIntro = () => {
   return (
-    <section className="py-16 px-6">
+    <section className="mt-10 px-6">
       <div className="max-w-5xl mx-auto text-center text-gray-500 ">
         {/* <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-6 ">
           Sustainability

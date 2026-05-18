@@ -1,7 +1,7 @@
 "use client";
-import { useState } from "react";
 import TeamModal from "../ui/TeamModal";
 import TeamCard from "../ui/TeamCard";
+import { useState } from "react";
 
 export default function TeamSection({
   heading = "Meet Our Team: Crafters Of Unforgettable Experiences",

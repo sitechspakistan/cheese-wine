@@ -4,7 +4,7 @@ export default function BookingBar() {
   return (
     <>
       {/* Booking Bar */}
-      <div className=" mb-[80px] -mt-[80px] ">
+      <div className=" mb-[80px] -mt-[80px]">
         <div className="max-w-7xl mx-auto px-10 pt-8 pb-3 border-2 border-gray-300 bg-gray-100">
           <p className="text-center text-[20px] font-bold text-gray-800 mb-[16px]">
             Book direct and embark on this journey with us.
@@ -29,7 +29,7 @@ export default function BookingBar() {
                 Check In / Check Out
               </label>
               <input
-                type="text"
+                type="date"
                 placeholder="Add The Dates"
                 className="bg-[#dedede] border border-gray-300 px-3 py-2 text-sm text-gray-400  focus:outline-none focus:border-gray-500"
               />
