@@ -1,5 +1,6 @@
 import Image from "next/image";
 import BookButton from "./BookButton";
+import Link from "next/link";
 
 export default function AccommodationCard({
   imageSrc = "",
@@ -16,9 +17,12 @@ export default function AccommodationCard({
   return (
     <div className="bg-white flex flex-col">
       {/* Image */}
-      <div className="w-full h-[600px] relative overflow-hidden">
+      <Link
+        href={href}
+        className="w-full h-[600px] relative overflow-hidden block"
+      >
         <Image src={imageSrc} alt={title} fill className="object-cover" />
-      </div>
+      </Link>
 
       {/* Content */}
       <div className="pt-5 flex flex-col flex-1">

@@ -22,12 +22,12 @@ export default function GallerySec({
         >
           <div className="grid grid-cols-3 gap-2">
             {images.slice(0, 6).map((src, index) => (
-              <div key={index} className="h-[100px] overflow-hidden">
+              <div key={index} className="h-[200px] overflow-hidden">
                 <Image
                   src={`/assets/images/gallery/${src}`}
                   alt={`Instagram photo ${index + 1}`}
-                  width={400}
-                  height={400}
+                  height={300}
+                  width={300}
                   className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
                 />
               </div>

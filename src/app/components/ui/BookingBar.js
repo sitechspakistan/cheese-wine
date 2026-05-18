@@ -1,4 +1,5 @@
 import BookButton from "./BookButton";
+import DateRange from "./DateRange";
 
 export default function BookingBar() {
   return (
@@ -28,11 +29,13 @@ export default function BookingBar() {
               <label className="text-[16px] font-bold  uppercase text-gray-500">
                 Check In / Check Out
               </label>
-              <input
+              <DateRange />
+
+              {/* <input
                 type="date"
                 placeholder="Add The Dates"
                 className="bg-[#dedede] border border-gray-300 px-3 py-2 text-sm text-gray-400  focus:outline-none focus:border-gray-500"
-              />
+              /> */}
             </div>
 
             {/* Adults */}
