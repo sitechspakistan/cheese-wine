@@ -14,7 +14,7 @@ const ExperiencesClient = ({ experiences }) => {
     <>
       <ExperienceFilter onFilter={setActiveFilter} />
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 pb-10">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 pb-16">
         {filtered.map((exp) => (
           <ExperienceCard key={exp.id} {...exp} />
         ))}

@@ -91,7 +91,7 @@ const ExperiencesPage = () => {
         ))}
       </div> */}
       <ExperiencesClient experiences={experiences} />
-      <div className="mb-[80px]">
+      <div className="pb-16">
         <ContactInquiry />
       </div>
     </>

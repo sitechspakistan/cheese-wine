@@ -17,8 +17,8 @@ const images = [
 const airportTransportation = () => {
   return (
     <>
-      <section className="px-4 py-[80px]">
-        <div className="py-12  max-w-7xl mx-auto min-h-screen flex flex-col ">
+      <section className="px-4 py-16">
+        <div className="max-w-7xl mx-auto min-h-screen flex flex-col pb-16">
           <h1 className="text-4xl font-bold text-center">
             Airport Transportation
           </h1>

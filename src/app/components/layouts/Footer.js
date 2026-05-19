@@ -10,11 +10,11 @@ export default function Footer() {
     },
     {
       name: "Suites",
-      href: "#",
+      href: "/accommodation/suites",
     },
     {
       name: "Apartments",
-      href: "",
+      href: "/accommodation/apartments",
     },
     {
       name: "Hotel LX Lapa",
@@ -35,10 +35,10 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-gray-100  border-gray-200 pt-12 pb-6 mt-auto bottom-0">
-      <div className="px-8">
+    <footer className=" bg-gray-100  border-gray-200  md:pt-16 mt-auto bottom-0">
+      <div className="pb-10">
         {/* Top 3 Columns */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pb-10   max-w-7xl mx-auto ">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pb-10 px-4 md:px-6 max-w-7xl mx-auto">
           {/* Column 1 - Site Map */}
           <div>
             <h4 className="text-lg font-bold tracking-widest uppercase text-gray-900 mb-4">

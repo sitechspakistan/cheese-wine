@@ -10,7 +10,7 @@ export default function HeroSub({
 }) {
   return (
     <section
-      className={`relative flex items-center justify-center bg-cover h-[300px] bg-center  ${className}`}
+      className={`relative flex items-center justify-center bg-cover h-[40vh] bg-center  ${className}`}
       style={{ backgroundImage: `url('${imageUrl}')` }}
     >
       {overlay && <div className="absolute inset-0 bg-black/40 "></div>}

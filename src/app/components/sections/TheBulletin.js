@@ -31,7 +31,7 @@ const posts = [
 
 const TheBulletin = () => {
   return (
-    <section className="bg-[#f5f5f5] py-[80px]">
+    <section className="bg-[#f5f5f5] px-4  py-10 md:py-16">
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
         <h2 className="text-4xl font-bold text-center mb-10">The Bulletin</h2>

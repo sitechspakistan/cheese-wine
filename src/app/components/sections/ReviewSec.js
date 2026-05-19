@@ -69,7 +69,7 @@ export default function ReviewsSec() {
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
 
   return (
-    <section className="bg-[#f5f5f5] py-[50px] px-4">
+    <section className="bg-[#f5f5f5] px-4 py-10 md:py-16">
       <div className="max-w-7xl mx-auto">
         {/* Top Row: Heading + Platform Logos */}
         <div className="flex items-center justify-between mb-10">

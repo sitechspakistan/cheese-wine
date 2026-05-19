@@ -4,10 +4,10 @@ export default function TeamCard({ member, onClick }) {
   return (
     <div
       onClick={() => onClick(member)}
-      className="cursor-pointer group overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300"
+      className="cursor-pointer group overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col h-full"
     >
       {/* Card Image */}
-      <div className="relative h-64 w-full overflow-hidden">
+      <div className="relative h-100 w-full overflow-hidden">
         <Image
           src={member.image}
           alt={member.name}
@@ -17,9 +17,12 @@ export default function TeamCard({ member, onClick }) {
       </div>
 
       {/* Card Footer */}
-      <div className="bg-[#1e2d4a] text-white text-center py-4 px-3">
+      <div className="bg-[#1e2d4a] text-white text-center py-4 px-3 flex flex-col justify-center flex-1">
         <p className="font-semibold text-lg">{member.name}</p>
-        <p className="text-sm text-gray-300 mt-1">{member.location}</p>
+
+        {member.location && (
+          <p className="text-sm text-gray-300 mt-1">{member.location}</p>
+        )}
       </div>
     </div>
   );

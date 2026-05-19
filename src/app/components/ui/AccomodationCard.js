@@ -13,6 +13,8 @@ export default function AccommodationCard({
   roomTypes = [],
   rating = "",
   reviewCount = 0,
+  location = "",
+  mapHref = "#",
 }) {
   return (
     <div className="bg-white flex flex-col">
@@ -25,9 +27,35 @@ export default function AccommodationCard({
       </Link>
 
       {/* Content */}
-      <div className="pt-5 flex flex-col flex-1">
+      <div className="pt-5 flex flex-col">
         {/* Title */}
         <h3 className="text-3xl font-bold mb-[22px]">{title}</h3>
+
+        <div className="flex items-center gap-2 mb-[22px]">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="text-gray-500 shrink-0"
+          >
+            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+            <circle cx="12" cy="10" r="3" />
+          </svg>
+          <span className="text-sm text-gray-600">{location}</span>
+          <Link
+            target="blank"
+            href={mapHref}
+            className="text-sm text-blue-600 underline underline-offset-2 hover:text-blue-800"
+          >
+            View on map
+          </Link>
+        </div>
 
         {/* Paragraph */}
         <p className="text-base text-gray-600 leading-relaxed flex-1">
@@ -38,23 +66,57 @@ export default function AccommodationCard({
             <p className="text-xs uppercase tracking-widest text-gray-400 mb-3">
               Room Types
             </p>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-4">
               {roomTypes.map((room) => (
-                <div
-                  key={room.name}
-                  className="flex justify-between items-center border-b border-gray-100 pb-2"
-                >
-                  <div>
-                    <span className="text-sm font-medium text-gray-700">
-                      {room.name}
-                    </span>
-                    <span className="text-xs text-gray-400 ml-2">
-                      · Up to {room.capacity} guests
+                <div key={room.name} className="border-b border-gray-100 pb-4">
+                  {/* Room name row */}
+                  <div className="flex justify-between items-center mb-2">
+                    <div>
+                      <span className="text-sm font-medium text-gray-700">
+                        {room.name}
+                      </span>
+                      <span className="text-xs text-gray-400 ml-2">
+                        · Up to {room.capacity} guests
+                      </span>
+                    </div>
+                    <span className="text-sm font-semibold text-[#1e2d4a]">
+                      {room.price}/night
                     </span>
                   </div>
-                  <span className="text-sm font-semibold text-[#1e2d4a]">
-                    {room.price}/night
-                  </span>
+
+                  {/* Price comparison row */}
+                  {room.platforms && room.platforms.length > 0 && (
+                    <div className="flex items-center gap-4">
+                      {room.platforms.map((platform) => (
+                        <div
+                          key={platform.name}
+                          className="flex items-center gap-1.5"
+                        >
+                          {/* Placeholder image — swap with real logo */}
+                          <div className="w-8 h-8 relative shrink-0 rounded-sm overflow-hidden bg-gray-100 flex items-center justify-center">
+                            {platform.logoSrc ? (
+                              <Image
+                                src={platform.logoSrc}
+                                alt={platform.name}
+                                fill
+                                className="object-contain"
+                              />
+                            ) : (
+                              <span className="text-[8px] font-bold text-gray-400 leading-none">
+                                {platform.name.charAt(0)}
+                              </span>
+                            )}
+                          </div>
+                          <span className="text-xs text-gray-500">
+                            {platform.name}
+                          </span>
+                          <span className="text-xs font-medium text-gray-700">
+                            {platform.price}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

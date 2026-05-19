@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Hero() {
   return (
     <section
-      className="flex items-center justify-center bg-cover bg-center h-[600px]"
+      className="flex items-center justify-center bg-cover bg-center h-[80vh]"
       style={{ backgroundImage: "url('/assets/images/hero-bg2.jpg')" }}
     >
       <div className="max-w-7xl mx-auto text-center flex flex-col justify-center items-center gap-8">
@@ -14,7 +14,6 @@ export default function Hero() {
             alt="Arrow Right"
             width={100}
             height={100}
-            className="mb-[20px] "
           />
         </Link>
 

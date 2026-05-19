@@ -13,13 +13,13 @@ const images = [
   "/assets/images/gallery/1.jpg",
   "/assets/images/gallery/2.jpg",
   "/assets/images/gallery/3.jpg",
-  "/assets/images/gallery/4.jpg",
+  "/assets/images/gallery/4.png",
 ];
 const uniqueExperience = () => {
   return (
     <>
-      <section className="px-4 py-[80px]">
-        <div className="py-12  max-w-7xl mx-auto min-h-screen flex flex-col ">
+      <section className="px-4 py-16">
+        <div className="max-w-7xl mx-auto min-h-screen flex flex-col pb-16">
           <h1 className="text-4xl font-bold text-center">
             Unique Experience: Unforgettable Moments with Cheese & Wine in
             Lisbon

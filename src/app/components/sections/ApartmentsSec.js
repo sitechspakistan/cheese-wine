@@ -4,6 +4,9 @@ import ApartmentsAddDetails from "../ui/ApartmentsAddDetails";
 import CancellationPolicies from "../ui/CancellationPolicies";
 import TermsCondition from "../ui/TermsCondition";
 
+import BookingBarVer from "../ui/BookingBarVer";
+import AmenitiesBar from "../ui/AmenitiesBar";
+
 const ApartmentsSec = () => {
   return (
     <section className="max-w-7xl mx-auto px-4 md:px-6 py-16">
@@ -17,12 +20,10 @@ const ApartmentsSec = () => {
           <TermsCondition />
         </div>
 
-        {/* RIGHT — 30% */}
-        {/* <div className="w-[30%] flex flex-col gap-6">
-          <div className="border border-gray-200 p-6 bg-white"></div>
-
-          <div className="border border-gray-200 p-6 bg-white"></div>
-        </div> */}
+        <div className="w-[30%] flex flex-col gap-6">
+          <BookingBarVer />
+          <AmenitiesBar />
+        </div>
       </div>
     </section>
   );

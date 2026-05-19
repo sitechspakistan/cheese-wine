@@ -5,7 +5,7 @@ export default function BookingBar() {
   return (
     <>
       {/* Booking Bar */}
-      <div className=" mb-[80px] -mt-[80px]">
+      <div className="px-4 md:px-6 mb-[64px] -mt-[80px]">
         <div className="max-w-7xl mx-auto px-10 pt-8 pb-3 border-2 border-gray-300 bg-gray-100">
           <p className="text-center text-[20px] font-bold text-gray-800 mb-[16px]">
             Book direct and embark on this journey with us.
