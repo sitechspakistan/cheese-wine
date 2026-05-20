@@ -51,7 +51,7 @@ export default function AccommodationCard({
           <Link
             target="blank"
             href={mapHref}
-            className="text-sm text-blue-600 underline underline-offset-2 hover:text-blue-800"
+            className="text-sm text-gray-500 underline underline-offset-2 hover:text-gray-800"
           >
             View on map
           </Link>
@@ -72,7 +72,7 @@ export default function AccommodationCard({
                   {/* Room name row */}
                   <div className="flex justify-between items-center mb-2">
                     <div>
-                      <span className="text-sm font-medium text-gray-700">
+                      <span className="text-base font-semibold text-gray-700">
                         {room.name}
                       </span>
                       <span className="text-xs text-gray-400 ml-2">
@@ -85,38 +85,32 @@ export default function AccommodationCard({
                   </div>
 
                   {/* Price comparison row */}
-                  {room.platforms && room.platforms.length > 0 && (
-                    <div className="flex items-center gap-4">
-                      {room.platforms.map((platform) => (
-                        <div
-                          key={platform.name}
-                          className="flex items-center gap-1.5"
-                        >
-                          {/* Placeholder image — swap with real logo */}
-                          <div className="w-8 h-8 relative shrink-0 rounded-sm overflow-hidden bg-gray-100 flex items-center justify-center">
-                            {platform.logoSrc ? (
-                              <Image
-                                src={platform.logoSrc}
-                                alt={platform.name}
-                                fill
-                                className="object-contain"
-                              />
-                            ) : (
-                              <span className="text-[8px] font-bold text-gray-400 leading-none">
-                                {platform.name.charAt(0)}
-                              </span>
-                            )}
-                          </div>
-                          <span className="text-xs text-gray-500">
-                            {platform.name}
-                          </span>
-                          <span className="text-xs font-medium text-gray-700">
-                            {platform.price}
-                          </span>
+
+                  <div className="flex items-center gap-8 pl-3">
+                    {room.platforms.map((platform) => (
+                      <div
+                        key={platform.name}
+                        className="flex items-center gap-1.5"
+                      >
+                        {/* Placeholder image — swap with real logo */}
+                        <div className="w-5 h-5 relative shrink-0 rounded-sm overflow-hidden bg-gray-100 flex items-center justify-center">
+                          <Image
+                            src={platform.logoSrc}
+                            alt={platform.name}
+                            fill
+                            className="object-contain "
+                          />
+                          ,
                         </div>
-                      ))}
-                    </div>
-                  )}
+                        <span className="text-sm text-gray-500">
+                          {platform.name}
+                        </span>
+                        <span className="text-sm font-semibold text-[#1e2d4a]">
+                          {platform.price}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>
@@ -124,7 +118,7 @@ export default function AccommodationCard({
         )}
 
         {/* Reviews — sirf accommodation page pe */}
-        {showReviews && rating && (
+        {/* {showReviews && rating && (
           <div className="mt-5 flex items-center gap-3">
             <div className="bg-[#1e2d4a] text-white px-3 py-2 text-lg font-bold">
               {rating}
@@ -134,10 +128,10 @@ export default function AccommodationCard({
               <p className="text-xs text-gray-400">{reviewCount} reviews</p>
             </div>
           </div>
-        )}
+        )} */}
 
         {/* Button */}
-        <div className="mt-[70px]">
+        <div className="mt-8">
           <BookButton
             label={buttonLabel}
             href={href}

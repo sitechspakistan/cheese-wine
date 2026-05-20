@@ -59,7 +59,7 @@ const AboutPage = () => {
       <CoreValues />
       <Timeline />
 
-      <TeamSection />
+      <TeamSection bookButton={true} />
 
       <CTABanner
         heading="Ready to experience handmade hospitality?"

@@ -2,8 +2,11 @@
 import TeamModal from "../ui/TeamModal";
 import TeamCard from "../ui/TeamCard";
 import { useState } from "react";
+import BookButton from "../ui/BookButton";
 
 export default function TeamSection({
+  className = "",
+  bookButton = false,
   heading = "Meet Our Team: Crafters Of Unforgettable Experiences",
   paragraph = `At our charming Cheese & Wine, we pride ourselves on practicing the art of Handmade Hospitality. Our dedicated team embodies
 warmth, attentiveness, and a genuine passion for curating unforgettable experiences for our guests. From the moment you step
@@ -36,103 +39,13 @@ view.`,
       image: "/assets/team/team-3.png",
       quote: "Apna quote yahan...",
     },
-    {
-      name: "Iris Soares",
-      location: "Luanda - Angola",
-      image: "/assets/team/team-4.png",
-      quote: "Apna quote yahan...",
-    },
-    {
-      name: "Leonardo Silva",
-      location: "Santa Catarina - Brasil",
-      image: "/assets/team/team-5.png",
-      quote: "Apna quote yahan...",
-    },
-    {
-      name: "Maria Soares",
-      location: "Minas Gerais - Brasil",
-      image: "/assets/team/team-6.png",
-      quote: "Apna quote yahan...",
-    },
-    {
-      name: "Jamuna Bhattarai",
-      location: "Pokhara - Nepal",
-      image: "/assets/team/team-7.png",
-      quote: "Apna quote yahan...",
-    },
-    {
-      name: "Isabel Fernando",
-      location: "Luanda - Angola",
-      image: "/assets/team/team-8.png",
-      quote: "Apna quote yahan...",
-    },
-    {
-      name: "Rafaela Furtado",
-      location: "Lisboa - Portugal",
-      image: "/assets/team/team-9.png",
-      quote: "Apna quote yahan...",
-    },
-    {
-      name: "Hugo Fabian",
-      location: "La Pampa - Argentina",
-      image: "/assets/team/team-10.png",
-      quote: "Apna quote yahan...",
-    },
-    {
-      name: "Debabrata Khatua",
-      location: "Kolkata - Índia",
-      image: "/assets/team/team-11.png",
-      quote: "Apna quote yahan...",
-    },
-    {
-      name: "Alcidia Maria",
-      location: "Santo Antão - Cabo Verde",
-      image: "/assets/team/team-12.png",
-      quote: "Apna quote yahan...",
-    },
-    {
-      name: "Bruna Letícia Araújo",
-      location: "",
-      image: "/assets/team/team-13.png",
-      quote: "Apna quote yahan...",
-    },
-    {
-      name: "Silene Silva",
-      location: "Ilha de Santo Antão - Cabo Verde",
-      image: "/assets/team/team-14.png",
-      quote: "Apna quote yahan...",
-    },
-    {
-      name: "Paula Moreira",
-      location: "Lisboa - Portugal",
-      image: "/assets/team/team-15.png",
-      quote: "Apna quote yahan...",
-    },
-    {
-      name: "Joana da Graça",
-      location: "Ilha de São Vicente - Cabo Verde",
-      image: "/assets/team/team-16.png",
-      quote: "Apna quote yahan...",
-    },
-    {
-      name: "Sérgio Pinheiro",
-      location: "Covilhã - Portugal",
-      image: "/assets/team/team-17.png",
-      quote: "Apna quote yahan...",
-    },
-    {
-      name: "Filipa Cândido Pinheiro",
-      location: "",
-      image: "/assets/team/team-18.png",
-      quote: "Apna quote yahan...",
-    },
   ],
 }) {
   const [selected, setSelected] = useState(null);
 
   return (
-    <section className="bg-white px-4 pb-[80px]">
-      <div className="max-w-7xl mx-auto">
+    <section className={`bg-white px-4 pb-16 ${className}`}>
+      <div className="max-w-7xl mx-auto ">
         {/* Heading & Paragraph */}
         <div className=" mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 text-center">
@@ -151,6 +64,16 @@ view.`,
             <TeamCard key={i} member={member} onClick={setSelected} />
           ))}
         </div>
+        {bookButton && (
+          <div className="flex justify-center mt-10">
+            <BookButton
+              label={"Meet The Whole Team"}
+              href={"/about/team"}
+              className="bg-[#1e2d4a] text-white border-[#1e2d4a] px-6 py-2.5 hover:opacity-90 [&>span]:border-white"
+              url="/assets/svg-icons/round-arrow-white.svg"
+            />
+          </div>
+        )}
       </div>
 
       {/* Modal */}
