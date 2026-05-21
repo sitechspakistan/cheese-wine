@@ -8,7 +8,7 @@ export const metadata = {
 };
 const contactPage = () => {
   return (
-    <div className="max-w-7xl mx-auto px-10 py-30">
+    <div className="max-w-7xl mx-auto px-4 md:px-6 py-10  md:py-16">
       <h1 className="text-4xl font-bold text-center text-[#1e2d4a] mb-12">
         We'd Love To Hear From You...
       </h1>

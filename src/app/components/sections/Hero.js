@@ -17,7 +17,7 @@ export default function Hero() {
           />
         </Link>
 
-        <h1 className="text-white text-4xl  text-center font-semibold max-w-3xl">
+        <h1 className="text-white text-4xl capitalize text-center font-semibold max-w-3xl">
           We believe in handmade hospitality, where the uniqueness of every
           guest is truly acknowledged and valued.
         </h1>

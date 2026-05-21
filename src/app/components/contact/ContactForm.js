@@ -46,13 +46,13 @@ export default function ContactForm() {
         value={formData.fullName}
         onChange={handleChange}
       />
-      <ContactSelect
+      {/* <ContactSelect
         name="reason"
         placeholder="Reason"
         value={formData.reason}
         onChange={handleChange}
         options={reasonOptions}
-      />
+      /> */}
       <ContactInput
         type="email"
         name="email"
