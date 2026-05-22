@@ -8,13 +8,13 @@ export const metadata = {
 export default function BookingPage() {
   return (
     <>
-      <HeroSub heading="Book Now" overlay="true" />
+      {/* <HeroSub heading="Book Now" overlay="true" /> */}
       {/* <div className=" max-w-7xl mx-auto  overflow-hidden"> */}
       <iframe
         src="https://admin.hostsync.io/booking2.php?propid=322695&amp;referer=iframe"
         width={"100%"}
         height={"1000px"}
-        className="overflow-hidden border-none -mt-12 relative"
+        className="overflow-hidden border-none my-6"
         id="bookingFrame"
       >
         {/* <a
