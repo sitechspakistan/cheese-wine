@@ -2,7 +2,7 @@
 import "./globals.css";
 import Navbar from "./components/layouts/Navbar";
 import Footer from "./components/layouts/Footer";
-import { Oswald } from "next/font/google";
+import { Oswald, Roboto_Slab } from "next/font/google";
 
 export const metadata = {
   title: "Create Next App",
@@ -12,11 +12,21 @@ export const metadata = {
 const oswald = Oswald({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-oswald",
 });
+
+const robotoSlab = Roboto_Slab({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-roboto-slab",
+});
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`flex flex-col min-h-screen ${oswald.className}`}>
+      <body
+        className={`flex flex-col min-h-screen ${oswald.variable} ${robotoSlab.variable}`}
+      >
         <Navbar />
         <main className="flex-1 ">{children}</main>
         <Footer />

@@ -10,7 +10,7 @@ export default function BookButton({
   return (
     <Link
       href={href}
-      className={`inline-flex items-center gap-2 font-bold tracking-widest text-[#1e2d4a] hover:opacity-70 transition-opacity uppercase ${className}`}
+      className={`inline-flex items-center gap-2 font-bold tracking-widest text-[#1e2d4a] hover:opacity-70 transition-opacity uppercase font-oswald ${className} `}
     >
       {label}
       <Image

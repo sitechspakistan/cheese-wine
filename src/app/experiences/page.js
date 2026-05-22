@@ -20,9 +20,9 @@ const experiences = [
     buttonText: "Discover",
     buttonLink: "/experiences/unique-experience",
     complimentary: false,
-    price: "€50",
-    rating: "4.8",
-    ratingSource: "TripAdvisor",
+    // price: "€50",
+    // rating: "4.8",
+    // ratingSource: "TripAdvisor",
   },
   {
     id: 2,
@@ -33,7 +33,7 @@ const experiences = [
     buttonText: "Discover",
     buttonLink: "/experiences/explore-lisbon",
     complimentary: true,
-    price: "complimentary",
+    // price: "complimentary",
   },
   {
     id: 3,

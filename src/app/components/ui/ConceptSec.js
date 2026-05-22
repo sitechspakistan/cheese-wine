@@ -48,7 +48,7 @@ export default function ConceptSec({
       </div>
 
       {/* Text Side */}
-      <div style={{ width: `${textWidth}%` }}>
+      <div style={{ width: `${textWidth}%` }} id="concept-text">
         <h2 className="text-4xl font-semibold mb-6">{heading}</h2>
         <div className="text-base text-gray-700">{paragraph}</div>
         {buttonLabel && (
