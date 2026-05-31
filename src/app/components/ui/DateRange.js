@@ -1,4 +1,5 @@
 "use client";
+import { today, getLocalTimeZone } from "@internationalized/date";
 import { RangeCalendar } from "@heroui/react";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -68,6 +69,7 @@ const DateRange = () => {
         >
           <RangeCalendar
             aria-label="Trip dates"
+            minValue={today(getLocalTimeZone())}
             value={value}
             onChange={(newValue) => {
               setValue(newValue);
