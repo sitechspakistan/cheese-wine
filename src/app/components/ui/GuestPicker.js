@@ -8,7 +8,7 @@ const ROWS = [
   { key: "rooms", label: "Rooms", min: 1 },
 ];
 
-export default function GuestPicker() {
+export default function GuestPicker({ onChange } = {}) {
   const [open, setOpen] = useState(false);
   const [counts, setCounts] = useState({ adults: 2, children: 0, rooms: 1 });
   const dropdownRef = useRef(null);
@@ -31,10 +31,11 @@ export default function GuestPicker() {
 
   function adjust(key, delta) {
     const row = ROWS.find((r) => r.key === key);
-    setCounts((prev) => ({
-      ...prev,
-      [key]: Math.max(row.min, prev[key] + delta),
-    }));
+    setCounts((prev) => {
+      const next = { ...prev, [key]: Math.max(row.min, prev[key] + delta) };
+      onChange?.(next);
+      return next;
+    });
   }
 
   const label = `${counts.adults} adult${counts.adults !== 1 ? "s" : ""} · ${counts.children} child${counts.children !== 1 ? "ren" : ""} · ${counts.rooms} room${counts.rooms !== 1 ? "s" : ""}`;

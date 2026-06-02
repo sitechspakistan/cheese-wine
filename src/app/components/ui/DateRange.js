@@ -3,7 +3,7 @@ import { today, getLocalTimeZone } from "@internationalized/date";
 import { RangeCalendar } from "@heroui/react";
 import React, { useEffect, useRef, useState } from "react";
 
-const DateRange = () => {
+const DateRange = ({ onDateChange } = {}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [value, setValue] = useState(null);
   const dropdownRef = useRef(null);
@@ -75,6 +75,7 @@ const DateRange = () => {
               setValue(newValue);
               if (newValue?.start && newValue?.end) {
                 setIsOpen(false);
+                onDateChange?.(newValue);
               }
             }}
           >

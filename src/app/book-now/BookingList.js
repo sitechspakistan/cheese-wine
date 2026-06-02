@@ -2,119 +2,8 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
-const NIGHTS = 2;
-const DATES_LABEL = "22 → 24 May 2026";
-
-const listings = [
-  {
-    id: 1,
-    type: "Apartments",
-    name: "Sto. Estêvão Viewpoint 1",
-    rating: "9.1",
-    district: "Alfama",
-    sub: "St Estêvão",
-    capacity: "Up to 2 guests",
-    description:
-      "Self-catering apartment in Alfama · St Estêvão, with a full kitchen and the best of the neighbourhood at your door.",
-    features: ["Full kitchen", "Fast Wi-Fi", "Self check-in", "Washing machine"],
-    amenities: ["Balcony / terrace"],
-    photos: 6,
-    onlyLeft: 1,
-    bookDirect: 130,
-    bookingCom: 147,
-    airbnb: 143,
-  },
-  {
-    id: 2,
-    type: "Apartments",
-    name: "Sto. Estêvão Viewpoint 2",
-    rating: "9.3",
-    district: "Alfama",
-    sub: "St Estêvão",
-    capacity: "Up to 3 guests",
-    description:
-      "Bright apartment with private balcony and panoramic views over the Alfama rooftops and the Tagus river.",
-    features: ["Balcony", "Fast Wi-Fi", "Air conditioning", "Self check-in"],
-    amenities: ["Balcony / terrace"],
-    photos: 8,
-    bookDirect: 145,
-    bookingCom: 164,
-    airbnb: 159,
-  },
-  {
-    id: 3,
-    type: "Apartments",
-    name: "Chiado Charm Studio",
-    rating: "9.0",
-    district: "Chiado",
-    sub: "Largo do Carmo",
-    capacity: "Up to 2 guests",
-    description:
-      "A characterful studio in the heart of Chiado, steps from boutique shops, theatres and tram 28.",
-    features: ["Full kitchen", "Fast Wi-Fi", "Heritage building", "Air conditioning"],
-    amenities: [],
-    photos: 5,
-    bookDirect: 135,
-    bookingCom: 152,
-    airbnb: 148,
-  },
-  {
-    id: 4,
-    type: "Apartments",
-    name: "Amoreiras Sky Loft",
-    rating: "9.4",
-    district: "Amoreiras",
-    sub: "Rato",
-    capacity: "Up to 4 guests",
-    description:
-      "Spacious loft with floor-to-ceiling windows and a quiet residential setting, ideal for longer stays.",
-    features: ["2 bedrooms", "Workspace", "Washing machine", "Fast Wi-Fi"],
-    amenities: ["Swimming pool"],
-    photos: 10,
-    onlyLeft: 2,
-    bookDirect: 185,
-    bookingCom: 208,
-    airbnb: 202,
-  },
-  {
-    id: 5,
-    type: "Apartments",
-    name: "Graça Tile House",
-    rating: "9.2",
-    district: "Graça",
-    sub: "Senhora do Monte",
-    capacity: "Up to 3 guests",
-    description:
-      "Traditional Lisbon tile house, fully refurbished, with a small private patio and miradouro views nearby.",
-    features: ["Patio", "Full kitchen", "Self check-in", "Fast Wi-Fi"],
-    amenities: ["Balcony / terrace"],
-    photos: 7,
-    bookDirect: 155,
-    bookingCom: 172,
-    airbnb: 168,
-  },
-  {
-    id: 6,
-    type: "Apartments",
-    name: "Príncipe Real Garden Flat",
-    rating: "9.5",
-    district: "Príncipe Real",
-    sub: "Jardim",
-    capacity: "Up to 2 guests",
-    description:
-      "Elegant one-bedroom with leafy garden views, on a quiet street lined with concept stores and cafés.",
-    features: ["Garden view", "Fast Wi-Fi", "Air conditioning", "Self check-in"],
-    amenities: ["Balcony / terrace"],
-    photos: 9,
-    bookDirect: 175,
-    bookingCom: 196,
-    airbnb: 192,
-  },
-];
-
-const DISTRICTS = ["All districts", "Alfama", "Amoreiras", "Chiado", "Graça", "Príncipe Real"];
 const AMENITIES = ["Any amenity", "Swimming pool", "Balcony / terrace"];
 const SORT_OPTIONS = [
   "Recommended",
@@ -124,45 +13,31 @@ const SORT_OPTIONS = [
 ];
 
 function ratesFor(listing) {
+  // Use real offers from API if present
+  if (listing.offers?.length) return listing.offers;
+
+  // Fallback: single "starting from" rate using the calendar price
   return [
     {
       id: "standard",
-      label: "Standard rate",
+      label: "Standard Rate",
       tag: null,
       price: listing.bookDirect,
-      description:
-        "Our everyday rate with the web-exclusive direct price. Breakfast included.",
-      notes: "Free cancellation up to 48h before arrival · No prepayment",
+      description: "Best direct price — book without OTA fees.",
+      notes: listing.minStay > 1 ? `Min ${listing.minStay} nights · Per property cancellation policy` : "Per property cancellation policy",
       hasPhoto: false,
-    },
-    {
-      id: "flexible",
-      label: "Flexible rate",
-      tag: "Free cancellation",
-      price: listing.airbnb,
-      description:
-        "Total peace of mind — change or cancel up to 24h before arrival, pay at the property.",
-      notes: "Free cancellation up to 24h before arrival · Pay on arrival",
-      hasPhoto: false,
-    },
-    {
-      id: "package",
-      label: "Cheese & Wine package",
-      tag: "Most popular",
-      price: listing.bookDirect + 40,
-      description:
-        "Arrive to a welcome bottle of Portuguese wine and a local cheese board, with guaranteed late checkout until 3pm.",
-      notes: "Non-refundable · Welcome wine & cheese for 2 · Late checkout until 3pm",
-      hasPhoto: true,
     },
   ];
 }
 
-export default function BookingList() {
-  const [district, setDistrict] = useState("All districts");
+export default function BookingList({ initialListings = [] }) {
   const [amenity, setAmenity] = useState("Any amenity");
   const [sortBy, setSortBy] = useState("Recommended");
-  const [maxPrice, setMaxPrice] = useState(260);
+  const [maxPrice, setMaxPrice] = useState(() =>
+    initialListings.length
+      ? Math.max(260, ...initialListings.map((r) => r.bookDirect + 50))
+      : 260
+  );
 
   const [modalListing, setModalListing] = useState(null);
   const [modalRateId, setModalRateId] = useState("standard");
@@ -172,9 +47,30 @@ export default function BookingList() {
   const [cart, setCart] = useState([]);
   const [cartOpen, setCartOpen] = useState(false);
 
+  // Real search results from BookingBar API search (override initialListings)
+  const [searchMeta, setSearchMeta] = useState(null);
+  const [activeListings, setActiveListings] = useState(initialListings);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem("cw_search");
+      if (raw) {
+        const { rooms, nights, datesLabel, guests } = JSON.parse(raw);
+        if (rooms?.length) {
+          setActiveListings(rooms);
+          setSearchMeta({ nights, datesLabel, guests });
+          setMaxPrice(Math.max(260, ...rooms.map((r) => r.bookDirect + 50)));
+        }
+        localStorage.removeItem("cw_search");
+      }
+    } catch {}
+  }, []);
+
+  const NIGHTS = searchMeta?.nights ?? 2;
+  const DATES_LABEL = searchMeta?.datesLabel ?? "22 → 24 May 2026";
+
   const filtered = useMemo(() => {
-    let arr = listings.filter((l) => {
-      if (district !== "All districts" && l.district !== district) return false;
+    let arr = activeListings.filter((l) => {
       if (amenity !== "Any amenity" && !(l.amenities || []).includes(amenity))
         return false;
       if (l.bookDirect > maxPrice) return false;
@@ -185,13 +81,15 @@ export default function BookingList() {
     else if (sortBy === "Price: High to Low")
       arr = [...arr].sort((a, b) => b.bookDirect - a.bookDirect);
     else if (sortBy === "Highest rated")
-      arr = [...arr].sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating));
+      arr = [...arr].sort((a, b) => parseFloat(b.rating ?? 0) - parseFloat(a.rating ?? 0));
     return arr;
-  }, [district, amenity, sortBy, maxPrice]);
+  }, [amenity, sortBy, maxPrice, activeListings]);
 
   function openModal(listing) {
     setModalListing(listing);
-    setModalRateId("standard");
+    // Default to the first available rate id
+    const firstRate = ratesFor(listing)[0];
+    setModalRateId(firstRate?.id ?? "standard");
     setModalAdults(2);
   }
   function closeModal() {
@@ -236,29 +134,27 @@ export default function BookingList() {
         {/* Heading */}
         <div className="mb-5">
           <h2 className="text-3xl md:text-4xl font-extrabold text-[#1e2d4a]">
-            Available apartments for your dates
+            {searchMeta ? "Available rooms for your dates" : "Available apartments for your dates"}
           </h2>
-          <p className="text-sm text-gray-500 mt-3 max-w-2xl">
-            All {listings.length} apartments shown individually. The districts are only used to
-            group / filter — filter by neighbourhood or price to narrow them down.
-          </p>
-        </div>
-
-        {/* District pills */}
-        <div className="flex flex-wrap gap-2 mb-3">
-          {DISTRICTS.map((d) => (
-            <button
-              key={d}
-              onClick={() => setDistrict(d)}
-              className={`text-xs md:text-sm px-4 py-2 rounded-full border transition-colors ${
-                district === d
-                  ? "bg-[#1e2d4a] text-white border-[#1e2d4a]"
-                  : "bg-white text-[#1e2d4a] border-gray-300 hover:border-[#1e2d4a]"
-              }`}
-            >
-              {d}
-            </button>
-          ))}
+          {searchMeta ? (
+            <div className="flex flex-wrap items-center gap-3 mt-3">
+              <span className="inline-flex items-center gap-1.5 text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                {DATES_LABEL} · {NIGHTS} night{NIGHTS !== 1 ? "s" : ""}
+              </span>
+              <span className="inline-flex items-center gap-1.5 text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                {searchMeta.guests.adults} adults · {searchMeta.guests.children} children · {searchMeta.guests.rooms} room{searchMeta.guests.rooms !== 1 ? "s" : ""}
+              </span>
+              <span className="text-sm font-semibold text-[#1f6b46]">
+                {activeListings.length} room{activeListings.length !== 1 ? "s" : ""} available
+              </span>
+            </div>
+          ) : (
+            <p className="text-sm text-gray-500 mt-3 max-w-2xl">
+              {activeListings.length} room{activeListings.length !== 1 ? "s" : ""} available. Filter by amenity or price to narrow down.
+            </p>
+          )}
         </div>
 
         {/* Amenity pills */}
@@ -317,7 +213,9 @@ export default function BookingList() {
         <div className="flex flex-col gap-6">
           {filtered.length === 0 && (
             <p className="text-sm text-gray-500 py-12 text-center border border-dashed border-gray-300">
-              No apartments match your filters. Try widening the price or clearing district/amenity filters.
+              {searchMeta
+                ? "No rooms are available for your selected dates. Please try different dates or another property."
+                : "No apartments match your filters. Try widening the price or clearing district/amenity filters."}
             </p>
           )}
 
@@ -327,69 +225,88 @@ export default function BookingList() {
               className="grid grid-cols-1 lg:grid-cols-[1fr_320px] border border-gray-200 bg-white overflow-hidden"
             >
               <div className="flex flex-col">
-                <div
-                  className="relative w-full aspect-[16/9] bg-gray-100"
-                  style={{
-                    backgroundImage:
-                      "repeating-linear-gradient(45deg, #efeee8 0 12px, #e6e5df 12px 24px)",
-                  }}
-                >
-                  <span className="absolute inset-0 flex items-center justify-center text-sm text-gray-400">
-                    Photo · landscape (16:9)
-                  </span>
-                  <span className="absolute bottom-3 right-3 bg-[#1e2d4a] text-white text-xs font-medium px-3 py-1.5 rounded-full inline-flex items-center gap-1.5">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <rect x="3" y="5" width="18" height="14" rx="2" />
-                      <circle cx="12" cy="12" r="3" />
-                    </svg>
-                    {item.photos} photos
-                  </span>
+                {/* Room photo */}
+                <div className="relative w-full aspect-[16/9] bg-gray-100 overflow-hidden">
+                  {item.pictureUrls?.length ? (
+                    <img
+                      src={item.pictureUrls[0]}
+                      alt={item.name}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div
+                      className="w-full h-full flex items-center justify-center text-sm text-gray-400"
+                      style={{ backgroundImage: "repeating-linear-gradient(45deg,#efeee8 0 12px,#e6e5df 12px 24px)" }}
+                    >
+                      {item.name}
+                    </div>
+                  )}
+                  {item.photos > 0 && (
+                    <span className="absolute bottom-3 right-3 bg-[#1e2d4a] text-white text-xs font-medium px-3 py-1.5 rounded-full inline-flex items-center gap-1.5">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <rect x="3" y="5" width="18" height="14" rx="2" />
+                        <circle cx="12" cy="12" r="3" />
+                      </svg>
+                      {item.photos} photo{item.photos !== 1 ? "s" : ""}
+                    </span>
+                  )}
                 </div>
 
                 <div className="p-5 md:p-6">
-                  {item.onlyLeft && (
+                  {item.numAvail === 1 && (
                     <span className="inline-block bg-rose-50 text-rose-700 text-xs font-medium px-3 py-1 rounded-full mb-3">
-                      Only {item.onlyLeft} left
+                      Only 1 left
                     </span>
                   )}
 
                   <div className="flex items-start justify-between gap-4 mb-3">
-                    <h3 className="text-xl md:text-2xl font-bold text-[#1e2d4a]">
-                      {item.name}
-                    </h3>
-                    <span className="bg-[#1e2d4a] text-white text-sm font-bold px-2.5 py-1 inline-flex items-center gap-1 shrink-0">
-                      <span>★</span>
-                      {item.rating}
-                    </span>
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1">{item.type}</p>
+                      <h3 className="text-xl md:text-2xl font-bold text-[#1e2d4a]">
+                        {item.name}
+                      </h3>
+                    </div>
+                    {item.rating && (
+                      <span className="bg-[#1e2d4a] text-white text-sm font-bold px-2.5 py-1 inline-flex items-center gap-1 shrink-0">
+                        <span>★</span>
+                        {item.rating}
+                      </span>
+                    )}
                   </div>
 
                   <div className="flex flex-wrap gap-2 mb-3">
-                    <span className="text-xs text-gray-600 bg-gray-100 px-3 py-1 rounded-full inline-flex items-center gap-1.5">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                        <circle cx="12" cy="10" r="3" />
-                      </svg>
-                      {item.district} · {item.sub}
-                    </span>
-                    <span className="text-xs text-gray-600 bg-gray-100 px-3 py-1 rounded-full">
-                      {item.capacity}
-                    </span>
+                    {(item.district || item.sub) && (
+                      <span className="text-xs text-gray-600 bg-gray-100 px-3 py-1 rounded-full inline-flex items-center gap-1.5">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                          <circle cx="12" cy="10" r="3" />
+                        </svg>
+                        {[item.district, item.sub].filter(Boolean).join(" · ")}
+                      </span>
+                    )}
+                    {item.capacity && (
+                      <span className="text-xs text-gray-600 bg-gray-100 px-3 py-1 rounded-full">
+                        {item.capacity}
+                      </span>
+                    )}
+                    {item.minStay > 1 && (
+                      <span className="text-xs text-gray-600 bg-gray-100 px-3 py-1 rounded-full">
+                        Min {item.minStay} nights
+                      </span>
+                    )}
                   </div>
 
-                  <p className="text-sm text-gray-700 leading-relaxed mb-3">
-                    {item.description}
-                  </p>
+                  {item.description && (
+                    <p className="text-sm text-gray-700 leading-relaxed mb-3">
+                      {item.description}
+                    </p>
+                  )}
 
-                  <p className="text-sm text-gray-600 mb-4">
-                    {item.features.join(" · ")}
-                  </p>
-
-                  <a
-                    href="#"
-                    className="text-sm font-semibold text-[#1e2d4a] underline underline-offset-4 hover:opacity-80"
-                  >
-                    More details &amp; full amenities →
-                  </a>
+                  {item.features?.length > 0 && (
+                    <p className="text-sm text-gray-600 mb-4">
+                      {item.features.join(" · ")}
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -482,6 +399,8 @@ export default function BookingList() {
           subtotal={modalSubtotal}
           cartTotal={cartTotal}
           cartCount={cart.length}
+          datesLabel={DATES_LABEL}
+          nights={NIGHTS}
         />
       )}
 
@@ -516,6 +435,8 @@ function RoomRatesModal({
   subtotal,
   cartTotal,
   cartCount,
+  datesLabel,
+  nights,
 }) {
   const rates = ratesFor(listing);
   const selectedRate = rates.find((r) => r.id === rateId);
@@ -562,7 +483,7 @@ function RoomRatesModal({
           </span>
           <span>
             <span className="text-gray-500">Dates:</span>{" "}
-            <span className="font-medium">{DATES_LABEL}</span>{" "}
+            <span className="font-medium">{datesLabel}</span>{" "}
             <button className="text-xs font-bold tracking-widest text-[#b08a4a] hover:underline uppercase ml-1">
               Change
             </button>
@@ -574,30 +495,38 @@ function RoomRatesModal({
           {/* Left column */}
           <div>
             <div className="flex gap-5 mb-6">
-              <div
-                className="w-36 h-32 shrink-0 bg-gray-100 flex items-center justify-center text-xs text-gray-400"
-                style={{
-                  backgroundImage:
-                    "repeating-linear-gradient(45deg, #efeee8 0 10px, #e6e5df 10px 20px)",
-                }}
-              >
-                Photo
+              <div className="w-36 h-32 shrink-0 bg-gray-100 overflow-hidden flex items-center justify-center text-xs text-gray-400">
+                {listing.pictureUrls?.length ? (
+                  <img src={listing.pictureUrls[0]} alt={listing.name} className="w-full h-full object-cover" />
+                ) : (
+                  <div
+                    className="w-full h-full flex items-center justify-center"
+                    style={{ backgroundImage: "repeating-linear-gradient(45deg,#efeee8 0 10px,#e6e5df 10px 20px)" }}
+                  >
+                    Photo
+                  </div>
+                )}
               </div>
               <div className="flex flex-col">
+                <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1">{listing.type}</p>
                 <h3 className="text-xl font-bold text-[#1e2d4a] mb-2">
                   {listing.name}
                 </h3>
                 <div className="flex flex-wrap gap-2 mb-2">
-                  <span className="text-xs text-gray-600 bg-gray-100 px-3 py-1 rounded-full">
-                    {listing.capacity}
-                  </span>
-                  <span className="text-xs text-gray-600 bg-gray-100 px-3 py-1 rounded-full inline-flex items-center gap-1.5">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                      <circle cx="12" cy="10" r="3" />
-                    </svg>
-                    {listing.district} · {listing.sub}
-                  </span>
+                  {listing.capacity && (
+                    <span className="text-xs text-gray-600 bg-gray-100 px-3 py-1 rounded-full">
+                      {listing.capacity}
+                    </span>
+                  )}
+                  {(listing.district || listing.sub) && (
+                    <span className="text-xs text-gray-600 bg-gray-100 px-3 py-1 rounded-full inline-flex items-center gap-1.5">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                        <circle cx="12" cy="10" r="3" />
+                      </svg>
+                      {[listing.district, listing.sub].filter(Boolean).join(" · ")}
+                    </span>
+                  )}
                 </div>
                 <p className="text-sm text-gray-600 mb-2">
                   {listing.features.join(" · ")}
@@ -670,7 +599,7 @@ function RoomRatesModal({
           <aside className="border border-gray-200 p-5 bg-white h-fit">
             <h4 className="text-lg font-bold text-[#1e2d4a]">Reservation summary</h4>
             <p className="text-sm text-gray-500 mt-1">
-              {DATES_LABEL} · {NIGHTS} nights · {adults} adults
+              {datesLabel} · {nights} nights · {adults} adults
             </p>
 
             <div className="mt-4 border border-gray-200 p-3 bg-gray-50">
@@ -682,7 +611,7 @@ function RoomRatesModal({
                 <span className="font-semibold">{listing.name}</span>
               </p>
               <p className="text-xs text-gray-500 mt-2">
-                {selectedRate.label} · €{selectedRate.price}/night · {adults} adults · {NIGHTS} nights ={" "}
+                {selectedRate.label} · €{selectedRate.price}/night · {adults} adults · {nights} nights ={" "}
                 <span className="font-semibold text-[#1e2d4a]">€{subtotal}</span>
               </p>
             </div>
@@ -703,7 +632,7 @@ function RoomRatesModal({
             <div className="mt-5 border-t border-gray-200 pt-4 space-y-2">
               <div className="flex items-center justify-between">
                 <span className="text-base font-bold text-[#1e2d4a]">Total</span>
-                <span className="text-2xl font-extrabold text-[#1e2d4a]">€{cartTotal}</span>
+                <span className="text-2xl font-extrabold text-[#1e2d4a]">€{subtotal}</span>
               </div>
               <div className="flex items-center justify-between text-xs text-gray-500">
                 <span>incl. taxes &amp; fees</span>
@@ -756,9 +685,11 @@ function CartDrawer({ cart, total, onClose, onRemove, onCheckout }) {
                     Room {idx + 1}
                   </p>
                   <p className="font-bold text-[#1e2d4a]">{item.listingName}</p>
-                  <p className="text-xs text-gray-500">
-                    {item.district} · {item.sub}
-                  </p>
+                  {(item.district || item.sub) && (
+                    <p className="text-xs text-gray-500">
+                      {[item.district, item.sub].filter(Boolean).join(" · ")}
+                    </p>
+                  )}
                 </div>
                 <button
                   onClick={() => onRemove(item.cartId)}
