@@ -1,5 +1,6 @@
-const TOKEN =
-  "mlcRaqmN4wpr/tAJNb2KKlHHETohyHSZ8GRbtWUaLJ6Rg0XUZS11QZyoamvCe4ePtSvhYjPhznkplFcJFLyRs+UuGI/YWyl41T/2/QVpD57YvcdAht0GdkiSNcQcTf9MG0Tv9qcvFH+8vMhTJYzcHA==";
+import { getValidToken } from "../api/token/route";
+
+const TOKEN = await getValidToken();
 
 const FEATURE_LABELS = {
   WIFI: "Fast Wi-Fi",
@@ -49,16 +50,23 @@ export function mapFeatureCodes(featureCodes = []) {
 }
 
 // Codes that count as "amenities" for the filter pills
-const AMENITY_CODES = new Set(["BALCONY", "ROOF_TERRACE", "SWIMMING_POOL", "PARKING_INCLUDED"]);
+const AMENITY_CODES = new Set([
+  "BALCONY",
+  "ROOF_TERRACE",
+  "SWIMMING_POOL",
+  "PARKING_INCLUDED",
+]);
 
 export function mapAmenities(featureCodes = []) {
   const amenities = [];
   for (const group of featureCodes) {
     for (const code of group) {
       if (AMENITY_CODES.has(code)) {
-        if (code === "BALCONY" || code === "ROOF_TERRACE") amenities.push("Balcony / terrace");
+        if (code === "BALCONY" || code === "ROOF_TERRACE")
+          amenities.push("Balcony / terrace");
         else if (code === "SWIMMING_POOL") amenities.push("Swimming pool");
-        else if (code === "PARKING_INCLUDED") amenities.push("Parking included");
+        else if (code === "PARKING_INCLUDED")
+          amenities.push("Parking included");
       }
     }
   }
@@ -92,12 +100,12 @@ export async function fetchPropertyListings(propertyId = "322695") {
 
   const [propRes, calRes] = await Promise.all([
     fetch(
-      `https://beds24.com/api/v2/properties?id=${propertyId}&includePictures=true&includeAllRooms=true&includeOffers=true`,
-      { headers, ...opts }
+      `https://beds24.com/api/v2/properties?id=${propertyId}&includePictures=false&includeAllRooms=true&includeOffers=true`,
+      { headers, ...opts },
     ),
     fetch(
       `https://beds24.com/api/v2/inventory/rooms/calendar?startDate=${startDate}&endDate=${endDate}&propertyId=${propertyId}&includePrices=true&includeNumAvail=true&includeMinStay=true`,
-      { headers, ...opts }
+      { headers, ...opts },
     ),
   ]);
 
@@ -161,7 +169,9 @@ export async function fetchPropertyListings(propertyId = "322695") {
           price,
           description: [
             "Best direct rate — no OTA fees.",
-            minStayDays ? `Minimum stay: ${minStayDays} night${minStayDays !== 1 ? "s" : ""}.` : null,
+            minStayDays
+              ? `Minimum stay: ${minStayDays} night${minStayDays !== 1 ? "s" : ""}.`
+              : null,
           ]
             .filter(Boolean)
             .join(" "),

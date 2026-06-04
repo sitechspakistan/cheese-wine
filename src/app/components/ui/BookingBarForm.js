@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import BookButton from "./BookButton";
 import DateRange from "./DateRange";
 import GuestPicker from "./GuestPicker";
@@ -12,7 +12,11 @@ function fmt(d) {
 
 function fmtLabel(d) {
   const date = new Date(d.year, d.month - 1, d.day);
-  return date.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+  return date.toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
 }
 
 function nightsBetween(start, end) {
@@ -45,7 +49,8 @@ export default function BookingBarForm({ properties = [] }) {
 
     const missing = [];
     if (!propertyId) missing.push("a property");
-    if (!dates?.start || !dates?.end) missing.push("check-in & check-out dates");
+    if (!dates?.start || !dates?.end)
+      missing.push("check-in & check-out dates");
     if (missing.length) {
       setError(`Please select ${missing.join(" and ")}.`);
       return;
@@ -57,10 +62,9 @@ export default function BookingBarForm({ properties = [] }) {
     const datesLabel = `${fmtLabel(dates.start)} → ${fmtLabel(dates.end)}`;
 
     // Determine which propertyIds to search
-    const ids =
-      propertyId
-        ? [propertyId]
-        : properties.map((p) => String(p.id)).filter(Boolean);
+    const ids = propertyId
+      ? [propertyId]
+      : properties.map((p) => String(p.id)).filter(Boolean);
 
     if (!ids.length) {
       setError("No property available to search.");
@@ -74,13 +78,17 @@ export default function BookingBarForm({ properties = [] }) {
       const results = await Promise.all(
         ids.map(async (pid) => {
           const [availRes, calRes] = await Promise.all([
-            fetch(`/api/availability?propertyId=${pid}&startDate=${startDate}&endDate=${endDate}`),
-            fetch(`/api/calendar?propertyId=${pid}&startDate=${startDate}&endDate=${endDate}`),
+            fetch(
+              `/api/availability?propertyId=${pid}&startDate=${startDate}&endDate=${endDate}`,
+            ),
+            fetch(
+              `/api/calendar?propertyId=${pid}&startDate=${startDate}&endDate=${endDate}`,
+            ),
           ]);
           const availData = await availRes.json();
           const calData = await calRes.json();
           return { pid, availData, calData };
-        })
+        }),
       );
 
       // Flatten rooms — keep only rooms where every date in range is available
@@ -93,7 +101,9 @@ export default function BookingBarForm({ properties = [] }) {
         }
 
         for (const room of availRooms) {
-          const allAvailable = Object.values(room.availability ?? {}).every(Boolean);
+          const allAvailable = Object.values(room.availability ?? {}).every(
+            Boolean,
+          );
           if (!allAvailable) continue;
 
           const calRoom = calMap[room.roomId];
@@ -111,19 +121,47 @@ export default function BookingBarForm({ properties = [] }) {
             description: "",
             features: [],
             amenities: [],
-            photos: 0,
+            photos: 1,
             bookDirect: pricePerNight ?? 0,
             bookingCom: pricePerNight ? Math.round(pricePerNight * 1.15) : 0,
             airbnb: pricePerNight ? Math.round(pricePerNight * 1.12) : 0,
-            minStay: calRoom ? Math.min(...Object.values(calRoom.calendar ?? {}).map((d) => d?.minStay ?? 1)) : 1,
-            numAvail: calRoom ? Math.min(...Object.values(calRoom.calendar ?? {}).map((d) => d?.numAvail ?? 1)) : 1,
+            minStay: calRoom
+              ? Math.min(
+                  ...Object.values(calRoom.calendar ?? {}).map(
+                    (d) => d?.minStay ?? 1,
+                  ),
+                )
+              : 1,
+            numAvail: calRoom
+              ? Math.min(
+                  ...Object.values(calRoom.calendar ?? {}).map(
+                    (d) => d?.numAvail ?? 1,
+                  ),
+                )
+              : 1,
           });
         }
       }
 
       localStorage.setItem(
         "cw_search",
-        JSON.stringify({ rooms, nights, datesLabel, guests, startDate, endDate })
+        JSON.stringify({
+          rooms,
+          nights,
+          datesLabel,
+          guests,
+          startDate,
+          endDate,
+        }),
+      );
+      localStorage.setItem(
+        "cw_search_params",
+        JSON.stringify({
+          propertyId,
+          guests,
+          startDate,
+          endDate,
+        }),
       );
 
       router.push("/book-now");
@@ -133,6 +171,33 @@ export default function BookingBarForm({ properties = [] }) {
       setLoading(false);
     }
   }
+  const [initialDates, setInitialDates] = useState(null);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem("cw_search_params");
+      if (raw) {
+        const saved = JSON.parse(raw);
+        if (saved.propertyId) setPropertyId(saved.propertyId);
+        if (saved.guests) setGuests(saved.guests);
+        if (saved.startDate && saved.endDate) {
+          // "2026-06-05" → {year, month, day} object mein convert karo
+          const parseDate = (str) => {
+            const [year, month, day] = str.split("-").map(Number);
+            return { year, month, day };
+          };
+          setDates({
+            start: parseDate(saved.startDate),
+            end: parseDate(saved.endDate),
+          });
+          setInitialDates({
+            start: parseDate(saved.startDate),
+            end: parseDate(saved.endDate),
+          });
+        }
+      }
+    } catch {}
+  }, []);
 
   return (
     <>
@@ -144,9 +209,14 @@ export default function BookingBarForm({ properties = [] }) {
           </label>
           <select
             value={propertyId}
-            onChange={(e) => { setPropertyId(e.target.value); setAttempted(false); }}
+            onChange={(e) => {
+              setPropertyId(e.target.value);
+              setAttempted(false);
+            }}
             className={`!bg-[#dedede] border px-3 py-2.5 text-sm text-gray-600 w-full focus:outline-none focus:border-gray-500 ${
-              attempted && !propertyId ? "border-rose-500 ring-1 ring-rose-400" : "border-gray-300"
+              attempted && !propertyId
+                ? "border-rose-500 ring-1 ring-rose-400"
+                : "border-gray-300"
             }`}
           >
             <option value="">Select property</option>
@@ -163,8 +233,15 @@ export default function BookingBarForm({ properties = [] }) {
           <label className="text-[12px] font-bold uppercase tracking-wide text-gray-500">
             Check In / Check Out
           </label>
-          <div className={attempted && !dates?.start ? "ring-1 ring-rose-400" : ""}>
-            <DateRange onDateChange={(v) => { setDates(v); setAttempted(false); }} />
+          <div
+            className={attempted && !dates?.start ? "ring-1 ring-rose-400" : ""}
+          >
+            <DateRange
+              onDateChange={(v) => {
+                setDates(v);
+                setAttempted(false);
+              }}
+            />
           </div>
         </div>
 
@@ -200,15 +277,30 @@ export default function BookingBarForm({ properties = [] }) {
           >
             {loading ? (
               <>
-                <svg className="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <svg
+                  className="animate-spin"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
                   <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
                 </svg>
                 Checking...
               </>
             ) : (
               <>
-                BOOK NOW
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                Search
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                >
                   <circle cx="12" cy="12" r="10" />
                   <polyline points="12 8 16 12 12 16" />
                   <line x1="8" y1="12" x2="16" y2="12" />

@@ -1,16 +1,15 @@
 import BookingBarForm from "./BookingBarForm";
 
-const TOKEN =
-  "mlcRaqmN4wpr/tAJNb2KKlHHETohyHSZ8GRbtWUaLJ6Rg0XUZS11QZyoamvCe4ePtSvhYjPhznkplFcJFLyRs+UuGI/YWyl41T/2/QVpD57YvcdAht0GdkiSNcQcTf9MG0Tv9qcvFH+8vMhTJYzcHA==";
+const TOKEN = process.env.BEDS24_TOKEN;
 
 async function fetchProperties() {
   try {
     const res = await fetch(
-      "https://beds24.com/api/v2/properties?includeLanguages=en&includeTexts=all&includePictures=false&includeOffers=false",
+      "https://beds24.com/api/v2/properties?includeLanguages=en&includeTexts=all&includePictures=true&includeOffers=false",
       {
         headers: { accept: "application/json", token: TOKEN },
         next: { revalidate: 3600 },
-      }
+      },
     );
     if (!res.ok) return [];
     const data = await res.json();

@@ -1,5 +1,4 @@
-const TOKEN =
-  "mlcRaqmN4wpr/tAJNb2KKlHHETohyHSZ8GRbtWUaLJ6Rg0XUZS11QZyoamvCe4ePtSvhYjPhznkplFcJFLyRs+UuGI/YWyl41T/2/QVpD57YvcdAht0GdkiSNcQcTf9MG0Tv9qcvFH+8vMhTJYzcHA==";
+const BEDS24_TOKEN = process.env.BEDS24_TOKEN;
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
@@ -18,7 +17,7 @@ export async function GET(request) {
 
   try {
     const res = await fetch(url, {
-      headers: { accept: "application/json", token: TOKEN },
+      headers: { accept: "application/json", token: BEDS24_TOKEN },
     });
     const data = await res.json();
     return Response.json(data);

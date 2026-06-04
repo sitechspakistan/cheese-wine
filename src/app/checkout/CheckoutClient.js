@@ -2,16 +2,19 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function CheckoutClient() {
-  const router = useRouter();
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
   const [datesLabel, setDatesLabel] = useState("");
   const [nights, setNights] = useState(0);
-  const [submitted, setSubmitted] = useState(false);
+  // const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(null);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -19,10 +22,6 @@ export default function CheckoutClient() {
     phone: "",
     country: "",
     requests: "",
-    cardName: "",
-    cardNumber: "",
-    expiry: "",
-    cvv: "",
   });
 
   useEffect(() => {
@@ -34,6 +33,8 @@ export default function CheckoutClient() {
         setTotal(data.total ?? 0);
         setDatesLabel(data.datesLabel ?? "");
         setNights(data.nights ?? 0);
+        setStartDate(data.startDate ?? "");
+        setEndDate(data.endDate ?? "");
       }
     } catch {}
   }, []);
@@ -42,83 +43,137 @@ export default function CheckoutClient() {
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    localStorage.removeItem("cw_checkout");
-    setSubmitted(true);
+    setSubmitting(true);
+    setError(null);
+
+    try {
+      const res = await fetch("/api/book-now", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          cart,
+          form,
+          nights,
+          checkIn: startDate,
+          checkOut: endDate,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.error ?? "Something went wrong. Please try again.");
+        setSubmitting(false);
+        return;
+      }
+
+      localStorage.setItem(
+        "cw_checkout_confirmed",
+        JSON.stringify({
+          cart,
+          form,
+          nights,
+          total,
+          checkIn: startDate,
+          checkOut: endDate,
+        }),
+      );
+
+      // Save booking IDs for the success page (in case guest comes back)
+      localStorage.removeItem("cw_checkout");
+
+      // Redirect to Beds24 hosted payment page
+      window.location.href = "/checkout/success";
+    } catch (err) {
+      setError("Network error. Please try again.");
+      setSubmitting(false);
+    }
   }
 
-  if (submitted) {
-    return (
-      <section className="px-4 md:px-6 py-16">
-        <div className="max-w-7xl mx-auto">
-          {/* Breadcrumb bar */}
-          <div className="flex items-center justify-between bg-gray-100 px-5 py-3 text-sm mb-0">
-            <p className="text-gray-700">
-              <span className="text-gray-500">Booking</span>{" "}
-              <span className="text-gray-400">·</span>{" "}
-              <span className="font-semibold text-[#1f6b46]">Confirmed</span>
-            </p>
-          </div>
+  // if (submitted) {
+  //   return (
+  //     <section className="px-4 md:px-6 py-16">
+  //       <div className="max-w-7xl mx-auto">
+  //         {/* Breadcrumb bar */}
+  //         <div className="flex items-center justify-between bg-gray-100 px-5 py-3 text-sm mb-0">
+  //           <p className="text-gray-700">
+  //             <span className="text-gray-500">Booking</span>{" "}
+  //             <span className="text-gray-400">·</span>{" "}
+  //             <span className="font-semibold text-[#1f6b46]">Confirmed</span>
+  //           </p>
+  //         </div>
 
-          <div className="border border-gray-200 bg-white p-8 md:p-14 text-center flex flex-col items-center gap-6">
-            <div className="w-16 h-16 rounded-full bg-[#d8efe1] flex items-center justify-center">
-              <svg
-                width="32"
-                height="32"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#1f6b46"
-                strokeWidth="2.5"
-              >
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[#1e2d4a]">
-              Booking Confirmed!
-            </h2>
-            <p className="text-gray-600 max-w-lg">
-              Thank you, <strong>{form.firstName}</strong>. Your reservation has been received. A
-              confirmation email will be sent to <strong>{form.email}</strong>.
-            </p>
+  //         <div className="border border-gray-200 bg-white p-8 md:p-14 text-center flex flex-col items-center gap-6">
+  //           <div className="w-16 h-16 rounded-full bg-[#d8efe1] flex items-center justify-center">
+  //             <svg
+  //               width="32"
+  //               height="32"
+  //               viewBox="0 0 24 24"
+  //               fill="none"
+  //               stroke="#1f6b46"
+  //               strokeWidth="2.5"
+  //             >
+  //               <polyline points="20 6 9 17 4 12" />
+  //             </svg>
+  //           </div>
+  //           <h2 className="text-3xl md:text-4xl font-extrabold text-[#1e2d4a]">
+  //             Booking Confirmed!
+  //           </h2>
+  //           <p className="text-gray-600 max-w-lg">
+  //             Thank you, <strong>{form.firstName}</strong>. Your reservation has
+  //             been received. A confirmation email will be sent to{" "}
+  //             <strong>{form.email}</strong>.
+  //           </p>
 
-            <div className="border border-gray-200 p-5 bg-gray-50 w-full max-w-lg text-left">
-              <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">
-                Booking summary
-              </p>
-              {cart.map((item, idx) => (
-                <div key={item.cartId} className="mb-3 pb-3 border-b border-gray-100 last:border-0 last:mb-0 last:pb-0">
-                  <p className="text-xs uppercase tracking-widest text-gray-400">Room {idx + 1}</p>
-                  <p className="font-bold text-[#1e2d4a]">{item.listingName}</p>
-                  <p className="text-xs text-gray-500">
-                    {item.rateLabel} · {item.adults} adults · {item.nights} nights
-                  </p>
-                  <p className="text-sm font-semibold text-[#1e2d4a] mt-1">€{item.subtotal}</p>
-                </div>
-              ))}
-              <div className="border-t border-gray-200 mt-3 pt-3 flex items-center justify-between">
-                <span className="font-bold text-[#1e2d4a]">Total charged</span>
-                <span className="text-xl font-extrabold text-[#1e2d4a]">€{total}</span>
-              </div>
-            </div>
+  //           <div className="border border-gray-200 p-5 bg-gray-50 w-full max-w-lg text-left">
+  //             <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">
+  //               Booking summary
+  //             </p>
+  //             {cart.map((item, idx) => (
+  //               <div
+  //                 key={item.cartId}
+  //                 className="mb-3 pb-3 border-b border-gray-100 last:border-0 last:mb-0 last:pb-0"
+  //               >
+  //                 <p className="text-xs uppercase tracking-widest text-gray-400">
+  //                   Room {idx + 1}
+  //                 </p>
+  //                 <p className="font-bold text-[#1e2d4a]">{item.listingName}</p>
+  //                 <p className="text-xs text-gray-500">
+  //                   {item.rateLabel} · {item.adults} adults · {item.nights}{" "}
+  //                   nights
+  //                 </p>
+  //                 <p className="text-sm font-semibold text-[#1e2d4a] mt-1">
+  //                   €{item.subtotal}
+  //                 </p>
+  //               </div>
+  //             ))}
+  //             <div className="border-t border-gray-200 mt-3 pt-3 flex items-center justify-between">
+  //               <span className="font-bold text-[#1e2d4a]">Total charged</span>
+  //               <span className="text-xl font-extrabold text-[#1e2d4a]">
+  //                 €{total}
+  //               </span>
+  //             </div>
+  //           </div>
 
-            <Link
-              href="/"
-              className="inline-flex items-center justify-center gap-2 bg-[#1e2d4a] text-white font-bold tracking-widest uppercase font-oswald px-8 py-3 hover:opacity-90"
-            >
-              Back to home
-              <Image
-                src="/assets/svg-icons/round-arrow-white.svg"
-                alt=""
-                width={24}
-                height={24}
-              />
-            </Link>
-          </div>
-        </div>
-      </section>
-    );
-  }
+  //           <Link
+  //             href="/"
+  //             className="inline-flex items-center justify-center gap-2 bg-[#1e2d4a] text-white font-bold tracking-widest uppercase font-oswald px-8 py-3 hover:opacity-90"
+  //           >
+  //             Back to home
+  //             <Image
+  //               src="/assets/svg-icons/round-arrow-white.svg"
+  //               alt=""
+  //               width={24}
+  //               height={24}
+  //             />
+  //           </Link>
+  //         </div>
+  //       </div>
+  //     </section>
+  //   );
+  // }
 
   if (cart.length === 0) {
     return (
@@ -247,7 +302,8 @@ export default function CheckoutClient() {
                 </div>
                 <div className="p-5">
                   <p className="text-xs text-gray-500 mb-3">
-                    We'll do our best to accommodate your requests. They are not guaranteed.
+                    We'll do our best to accommodate your requests. They are not
+                    guaranteed.
                   </p>
                   <textarea
                     name="requests"
@@ -261,7 +317,7 @@ export default function CheckoutClient() {
               </div>
 
               {/* Payment */}
-              <div className="border border-gray-200 bg-white">
+              {/* <div className="border border-gray-200 bg-white">
                 <div className="bg-gray-100 px-5 py-3 border-b border-gray-200 flex items-center justify-between">
                   <h3 className="text-sm font-bold uppercase tracking-widest text-[#1e2d4a]">
                     Payment details
@@ -338,7 +394,7 @@ export default function CheckoutClient() {
                     />
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
 
             {/* Right: Order summary (sticky) */}
@@ -354,7 +410,9 @@ export default function CheckoutClient() {
                   <div className="px-5 py-3 border-b border-gray-100 text-sm text-gray-600">
                     <span className="text-gray-400">Dates: </span>
                     {datesLabel}
-                    {nights > 0 && <span className="text-gray-400"> · {nights} nights</span>}
+                    {nights > 0 && (
+                      <span className="text-gray-400"> · {nights} nights</span>
+                    )}
                   </div>
                 )}
 
@@ -367,10 +425,16 @@ export default function CheckoutClient() {
                       <p className="text-xs uppercase tracking-widest text-gray-400 mb-0.5">
                         Room {idx + 1}
                       </p>
-                      <p className="font-bold text-[#1e2d4a] text-sm">{item.listingName}</p>
-                      <p className="text-xs text-gray-500">{item.district} · {item.sub}</p>
+                      <p className="font-bold text-[#1e2d4a] text-sm">
+                        {item.listingName}
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        {item.district} · {item.sub}
+                      </p>
                       <div className="flex items-center justify-between mt-2">
-                        <span className="text-xs text-gray-600">{item.rateLabel}</span>
+                        <span className="text-xs text-gray-600">
+                          {item.rateLabel}
+                        </span>
                         <span className="text-xs font-semibold text-[#1e2d4a]">
                           €{item.ratePrice}/night
                         </span>
@@ -379,7 +443,9 @@ export default function CheckoutClient() {
                         <span className="text-xs text-gray-500">
                           {item.adults} adults · {item.nights} nights
                         </span>
-                        <span className="text-sm font-bold text-[#1e2d4a]">€{item.subtotal}</span>
+                        <span className="text-sm font-bold text-[#1e2d4a]">
+                          €{item.subtotal}
+                        </span>
                       </div>
                     </div>
                   ))}
@@ -388,15 +454,21 @@ export default function CheckoutClient() {
                 <div className="border-t border-gray-200 px-5 py-4 space-y-2">
                   <div className="flex items-center justify-between text-sm">
                     <span className="text-gray-500">Subtotal</span>
-                    <span className="font-semibold text-gray-700">€{total}</span>
+                    <span className="font-semibold text-gray-700">
+                      €{total}
+                    </span>
                   </div>
                   <div className="flex items-center justify-between text-sm">
                     <span className="text-gray-500">Taxes &amp; fees</span>
                     <span className="text-gray-500">€0</span>
                   </div>
                   <div className="flex items-center justify-between border-t border-gray-200 pt-3 mt-1">
-                    <span className="text-base font-bold text-[#1e2d4a]">Total</span>
-                    <span className="text-2xl font-extrabold text-[#1e2d4a]">€{total}</span>
+                    <span className="text-base font-bold text-[#1e2d4a]">
+                      Total
+                    </span>
+                    <span className="text-2xl font-extrabold text-[#1e2d4a]">
+                      €{total}
+                    </span>
                   </div>
                 </div>
 
@@ -420,13 +492,16 @@ export default function CheckoutClient() {
 
                   <ul className="mt-3 space-y-1.5 text-xs text-gray-600">
                     <li className="flex items-center gap-2">
-                      <span className="text-[#1f6b46]">✓</span> Best price guaranteed
+                      <span className="text-[#1f6b46]">✓</span> Best price
+                      guaranteed
                     </li>
                     <li className="flex items-center gap-2">
-                      <span className="text-[#1f6b46]">✓</span> Instant confirmation
+                      <span className="text-[#1f6b46]">✓</span> Instant
+                      confirmation
                     </li>
                     <li className="flex items-center gap-2">
-                      <span className="text-[#1f6b46]">✓</span> Free cancellation (rate dependent)
+                      <span className="text-[#1f6b46]">✓</span> Free
+                      cancellation (rate dependent)
                     </li>
                     <li className="flex items-center gap-2">
                       <span className="text-[#1f6b46]">✓</span> No hidden fees
